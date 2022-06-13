@@ -1,0 +1,16 @@
+.card {
+  border-radius: 5px;
+  border: 1px solid lightslategrey;
+  padding: 1rem;
+  transition-property: box-shadow, opacity;
+  display: block;
+  flex: 1 0;
+}
+
+.title {
+  margin: 0;
+}
+
+.header {
+  padding-bottom: 1rem;
+}
