@@ -1,31 +1,41 @@
-import { FunctionComponent, PropsWithChildren } from 'react';
-import styles from './card.module.css'
-import layoutUtils from 'styles/layoutUtils.module.css'
+import { FunctionComponent, PropsWithChildren } from "react";
 
-interface CardDetails extends PropsWithChildren {
+export interface CardDetails extends PropsWithChildren {
   title?: string;
   subtitle?: string;
   flat?: boolean;
+  rightAligned?: boolean;
 }
 
-const Card: FunctionComponent<CardDetails> = (props) => {
-  const titleElement = props.title ? <h2 className={styles.title}>{props.title}</h2> : undefined;
-  const subtitleElement = props.subtitle ? <div className={styles.subtitle}>{props.subtitle}</div> : undefined;
-  const containerClasses = [styles.card, layoutUtils['elevation-1']];
+const Card: FunctionComponent<CardDetails> = ({
+  title,
+  subtitle,
+  flat,
+  children,
+}) => {
+  const titleElement = title ? (
+    <h2 className="font-light text-4xl">{title}</h2>
+  ) : undefined;
 
-  if (props.flat) {
-    containerClasses.push(layoutUtils.flat);
+  const subtitleElement = subtitle ? (
+    <div className="font-light text-xl">{subtitle}</div>
+  ) : undefined;
+
+  let containerClasses = " rounded border p-4 flex-1";
+
+  if (flat) {
+    containerClasses = containerClasses.replace("rounded ", "");
   }
 
   return (
-    <div className={containerClasses.join(" ")}>
-      <div className={styles.header}>
+    <div className={containerClasses}>
+      <div className="pb-4">
         {titleElement}
         {subtitleElement}
       </div>
-      <div className={styles.content}> {props.children} </div>
+      <div> {children} </div>
     </div>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;
