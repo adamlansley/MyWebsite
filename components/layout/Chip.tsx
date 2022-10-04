@@ -24,7 +24,7 @@ const Chip: FunctionComponent<ChipDetails> = ({
 
   const textElement = text ? <div>{text}</div> : undefined;
 
-  let containerClasses = `space-x-1 relative flex border border-${colourName} hover:bg-${colourName}/10 rounded-full py-0.5 px-2 cursor-pointer`;
+  let containerClasses = `space-x-1 relative flex border border-${colourName} hover:bg-${colourName}/10 rounded-full py-0.5 pl-2 pr-3 cursor-pointer`;
 
   if (reverse) {
     containerClasses += " flex-row-reverse space-x-reverse";

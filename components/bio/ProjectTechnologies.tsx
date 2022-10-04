@@ -1,6 +1,7 @@
 import {
   mdiGithub,
   mdiLanguageTypescript,
+  mdiLinkedin,
   mdiReact,
   mdiTailwind,
   mdiVuejs,
@@ -45,6 +46,12 @@ export const technologies: Technologies = {
     icon: mdiGithub,
     colourName: "github",
     href: "https://github.com/ImSirTea",
+  },
+  linkedin: {
+    name: "LinkedIn",
+    icon: mdiLinkedin,
+    colourName: "linkedin",
+    href: "https://www.linkedin.com/in/adam-lansley-993937195/",
   },
 } as const;
 

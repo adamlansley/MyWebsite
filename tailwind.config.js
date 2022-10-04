@@ -11,7 +11,8 @@ module.exports = {
         react: { DEFAULT: "#61dafb" },
         tailwindcss: { DEFAULT: "#38bdf5" },
         vue: { DEFAULT: "#42b883" },
-        github: { DEFAULT: "#FFF" },
+        github: { DEFAULT: "#FFF" }, // Only using white since we don't care on the homepage
+        linkedin: { DEFAULT: "#FFF" }, // Only using white since we don't care on the homepage
       },
     },
   },
@@ -23,17 +24,20 @@ module.exports = {
     "text-tailwindcss",
     "text-vue",
     "text-github",
+    "text-linkedin",
 
     "border-typescript",
     "border-react",
     "border-tailwindcss",
     "border-vue",
     "border-github",
+    "border-linkedin",
 
     "hover:bg-typescript/10",
     "hover:bg-react/10",
     "hover:bg-tailwindcss/10",
     "hover:bg-vue/10",
     "hover:bg-github/10",
+    "hover:bg-linkedin/10",
   ],
 };

@@ -3,14 +3,14 @@ import { FunctionComponent, useState } from "react";
 import styles from "./Header.module.scss";
 import { technologies } from "components/bio/ProjectTechnologies";
 
-const { github } = technologies;
+const { github, linkedin } = technologies;
 
 const Header: FunctionComponent = () => {
   const textClasses = `font-bold text-5xl sm:text-7xl pb-3 ${styles.text} ${styles.linear_swipe}`;
 
   const [isHovering, setHovering] = useState(false);
 
-  const technologyChips = [github]?.map((technology, index) => (
+  const technologyChips = [github, linkedin]?.map((technology, index) => (
     <Chip
       key={index}
       iconPath={technology.icon}
@@ -28,7 +28,7 @@ const Header: FunctionComponent = () => {
       <div className={textClasses}>Adam Lansley</div>
       <div className="text:xl sm:text-2xl pb-6">Frontend Developer</div>
       <div
-        className="flex"
+        className="flex space-x-3"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
       >
