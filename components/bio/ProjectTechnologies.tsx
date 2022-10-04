@@ -1,4 +1,5 @@
 import {
+  mdiGithub,
   mdiLanguageTypescript,
   mdiReact,
   mdiTailwind,
@@ -11,13 +12,11 @@ export interface Technology {
   name: string;
   icon: string;
   colourName: string;
+  href?: string;
 }
 
 interface Technologies {
-  typescript: Technology;
-  react: Technology;
-  vue: Technology;
-  tailwindcss: Technology;
+  [key: string]: Technology;
 }
 
 export const technologies: Technologies = {
@@ -40,6 +39,12 @@ export const technologies: Technologies = {
     name: "Tailwindcss",
     icon: mdiTailwind,
     colourName: "tailwindcss",
+  },
+  github: {
+    name: "Github",
+    icon: mdiGithub,
+    colourName: "github",
+    href: "https://github.com/ImSirTea",
   },
 } as const;
 
@@ -66,12 +71,11 @@ const ProjectTechnologies: FunctionComponent<ProjectTecnologies> = ({
     />
   ));
 
-  let containerClasses =
-    "w-40 flex flex-col border p-2 space-y-2 justify-center";
+  let containerClasses = "w-40 flex flex-col p-2 space-y-2 justify-center";
   if (rightAligned) {
-    containerClasses += " rounded-r-2xl border-l-0";
+    containerClasses += " rounded-r-2xl";
   } else {
-    containerClasses += " rounded-l-2xl border-r-0";
+    containerClasses += " rounded-l-2xl";
   }
 
   return (

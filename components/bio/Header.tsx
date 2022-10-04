@@ -1,20 +1,38 @@
-import { FunctionComponent } from "react";
-import styles from "./Header.module.css";
+import Chip from "components/layout/Chip";
+import { FunctionComponent, useState } from "react";
+import styles from "./Header.module.scss";
+import { technologies } from "components/bio/ProjectTechnologies";
+
+const { github } = technologies;
 
 const Header: FunctionComponent = () => {
-  const textClasses = `font-bold text-4xl sm:text-6xl leading-normal sm:leading-normal text-center whitespace-nowrap ${styles.text}`;
-  const nameDivs = Array.from("Adam Lansley").map((char, index) => (
-    <div
+  const textClasses = `font-bold text-5xl sm:text-7xl pb-4 ${styles.text} ${styles.linear_swipe}`;
+
+  const [isHovering, setHovering] = useState(false);
+
+  const technologyChips = [github]?.map((technology, index) => (
+    <Chip
       key={index}
-      style={{ animationDelay: `${index / 10}s` }}
-      className={char === " " ? "w-4" : undefined}
-    >
-      {char}
-    </div>
+      iconPath={technology.icon}
+      colourName={technology.colourName}
+      isHovering={isHovering}
+      text={technology.name}
+      hideUntilHover
+      reverse={false}
+      href={technology.href}
+    />
   ));
+
   return (
-    <div className="flex justify-center py-3">
-      <div className={textClasses}>{nameDivs}</div>
+    <div className="flex h-full justify-center items-center flex-col">
+      <div className={textClasses}>Adam Lansley</div>
+      <div
+        className="flex"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
+      >
+        {technologyChips}
+      </div>
     </div>
   );
 };

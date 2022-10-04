@@ -8,6 +8,7 @@ interface ChipDetails {
   hideUntilHover?: boolean;
   isHovering?: boolean;
   text?: string;
+  href?: string;
 }
 
 const Chip: FunctionComponent<ChipDetails> = ({
@@ -15,6 +16,7 @@ const Chip: FunctionComponent<ChipDetails> = ({
   colourName,
   reverse,
   text,
+  href,
 }) => {
   const icon = iconPath ? (
     <Icon className={`w-7 p-0.5 text-${colourName}`} path={iconPath} />
@@ -22,17 +24,23 @@ const Chip: FunctionComponent<ChipDetails> = ({
 
   const textElement = text ? <div>{text}</div> : undefined;
 
-  let containerClasses = `space-x-1 relative flex bg-${colourName}-light hover:bg-${colourName}-dark rounded-full py-0.5 px-2 cursor-pointer`;
+  let containerClasses = `space-x-1 relative flex border border-${colourName} hover:bg-${colourName}/10 rounded-full py-0.5 px-2 cursor-pointer`;
 
   if (reverse) {
     containerClasses += " flex-row-reverse space-x-reverse";
   }
 
-  return (
+  const containerElement = href ? (
+    <a className={containerClasses} href={href}>
+      {icon} {textElement}
+    </a>
+  ) : (
     <div className={containerClasses}>
       {icon} {textElement}
     </div>
   );
+
+  return containerElement;
 };
 
 export default Chip;

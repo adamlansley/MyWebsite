@@ -7,10 +7,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        typescript: { DEFAULT: "#3178c6", light: "#dfeaf7", dark: "#bcd9f9" },
-        react: { DEFAULT: "#61dafb", light: "#e7f9fe", dark: "#cff3fd" },
-        tailwindcss: { DEFAULT: "#38bdf5", light: "#e1f5fd", dark: "#c3ebfc" },
-        vue: { DEFAULT: "#42b883", light: "#e2f4ec", dark: "#c5ead9" },
+        typescript: { DEFAULT: "#3178c6" },
+        react: { DEFAULT: "#61dafb" },
+        tailwindcss: { DEFAULT: "#38bdf5" },
+        vue: { DEFAULT: "#42b883" },
+        github: { DEFAULT: "#FFF" },
       },
     },
   },
@@ -21,30 +22,18 @@ module.exports = {
     "text-react",
     "text-tailwindcss",
     "text-vue",
+    "text-github",
 
-    "text-typescript-light",
-    "text-react-light",
-    "text-tailwindcss-light",
-    "text-vue-light",
+    "border-typescript",
+    "border-react",
+    "border-tailwindcss",
+    "border-vue",
+    "border-github",
 
-    "text-typescript-dark",
-    "text-react-dark",
-    "text-tailwindcss-dark",
-    "text-vue-dark",
-
-    "bg-typescript",
-    "bg-react",
-    "bg-tailwindcss",
-    "bg-vue",
-
-    "bg-typescript-light",
-    "bg-react-light",
-    "bg-tailwindcss-light",
-    "bg-vue-light",
-
-    "hover:bg-typescript-dark",
-    "hover:bg-react-dark",
-    "hover:bg-tailwindcss-dark",
-    "hover:bg-vue-dark",
+    "hover:bg-typescript/10",
+    "hover:bg-react/10",
+    "hover:bg-tailwindcss/10",
+    "hover:bg-vue/10",
+    "hover:bg-github/10",
   ],
 };
