@@ -6,7 +6,7 @@ import { technologies } from "components/bio/ProjectTechnologies";
 const { github } = technologies;
 
 const Header: FunctionComponent = () => {
-  const textClasses = `font-bold text-5xl sm:text-7xl pb-4 ${styles.text} ${styles.linear_swipe}`;
+  const textClasses = `font-bold text-5xl sm:text-7xl pb-3 ${styles.text} ${styles.linear_swipe}`;
 
   const [isHovering, setHovering] = useState(false);
 
@@ -26,6 +26,7 @@ const Header: FunctionComponent = () => {
   return (
     <div className="flex h-full justify-center items-center flex-col">
       <div className={textClasses}>Adam Lansley</div>
+      <div className="text:xl sm:text-2xl pb-6">Frontend Developer</div>
       <div
         className="flex"
         onMouseEnter={() => setHovering(true)}
