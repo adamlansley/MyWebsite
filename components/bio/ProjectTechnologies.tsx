@@ -69,10 +69,10 @@ const ProjectTechnologies: FunctionComponent<ProjectTecnologies> = ({
   const tecnologyChips = technologies?.map((technology, index) => (
     <Chip
       key={index}
-      iconPath={technology.icon}
+      iconPath={technology.iconPath}
       colourName={technology.colourName}
       isHovering={isHovering}
-      text={technology.name}
+      text={technology.text}
       hideUntilHover
       reverse={!rightAligned}
     />
