@@ -10,8 +10,8 @@ import Chip from "components/layout/Chip";
 import { FunctionComponent, useState } from "react";
 
 export interface Technology {
-  name: string;
-  icon: string;
+  text: string;
+  iconPath: string;
   colourName: string;
   href?: string;
 }
@@ -22,34 +22,34 @@ interface Technologies {
 
 export const technologies: Technologies = {
   typescript: {
-    name: "Typescript",
-    icon: mdiLanguageTypescript,
+    text: "Typescript",
+    iconPath: mdiLanguageTypescript,
     colourName: "typescript",
   },
   react: {
-    name: "React",
-    icon: mdiReact,
+    text: "React",
+    iconPath: mdiReact,
     colourName: "react",
   },
   vue: {
-    name: "Vue",
-    icon: mdiVuejs,
+    text: "Vue",
+    iconPath: mdiVuejs,
     colourName: "vue",
   },
   tailwindcss: {
-    name: "Tailwindcss",
-    icon: mdiTailwind,
+    text: "Tailwindcss",
+    iconPath: mdiTailwind,
     colourName: "tailwindcss",
   },
   github: {
-    name: "Github",
-    icon: mdiGithub,
+    text: "Github",
+    iconPath: mdiGithub,
     colourName: "github",
     href: "https://github.com/ImSirTea",
   },
   linkedin: {
-    name: "LinkedIn",
-    icon: mdiLinkedin,
+    text: "LinkedIn",
+    iconPath: mdiLinkedin,
     colourName: "linkedin",
     href: "https://www.linkedin.com/in/adam-lansley-993937195/",
   },

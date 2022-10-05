@@ -13,11 +13,14 @@ module.exports = {
         vue: { DEFAULT: "#42b883" },
         github: { DEFAULT: "#FFF" }, // Only using white since we don't care on the homepage
         linkedin: { DEFAULT: "#FFF" }, // Only using white since we don't care on the homepage
+        about: { DEFAULT: "#b3e7e8" }, // Only using white since we don't care on the homepage
+        projects: { DEFAULT: "#e8e2b3" }, // Only using white since we don't care on the homepage
+        contact: { DEFAULT: "#b3e8b3" }, // Only using white since we don't care on the homepage
       },
     },
   },
   plugins: [],
-  // TODO: Build a generator for these, so I don't need to worry in the future
+  // @TODO: Build a generator for these, so I don't need to worry in the future
   safelist: [
     "text-typescript",
     "text-react",
@@ -25,6 +28,9 @@ module.exports = {
     "text-vue",
     "text-github",
     "text-linkedin",
+    "text-about",
+    "text-projects",
+    "text-contact",
 
     "border-typescript",
     "border-react",
@@ -32,6 +38,9 @@ module.exports = {
     "border-vue",
     "border-github",
     "border-linkedin",
+    "border-about",
+    "border-projects",
+    "border-contact",
 
     "hover:bg-typescript/10",
     "hover:bg-react/10",
@@ -39,5 +48,8 @@ module.exports = {
     "hover:bg-vue/10",
     "hover:bg-github/10",
     "hover:bg-linkedin/10",
+    "hover:bg-about/10",
+    "hover:bg-projects/10",
+    "hover:bg-contact/10",
   ],
 };

@@ -25,3 +25,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.linear-swipe { 
+  text-align: center;
+  
+  background: linear-gradient(to right, #66ccff, #ffaaff,  #66ccff);
+  background-size: 200% auto;
+  
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
+  animation: shine 4s linear infinite;
+  @keyframes shine {
+    to {
+      background-position: 200% center;
+    }
+  }
+}

@@ -1,7 +1,8 @@
 import { FunctionComponent } from "react";
 import Icon from "@mdi/react";
+import Link from "next/link";
 
-interface ChipDetails {
+export interface ChipDetails {
   iconPath?: string;
   colourName?: string;
   reverse?: boolean;
@@ -31,9 +32,11 @@ const Chip: FunctionComponent<ChipDetails> = ({
   }
 
   const containerElement = href ? (
-    <a className={containerClasses} href={href}>
-      {icon} {textElement}
-    </a>
+    <Link href={href}>
+      <a className={containerClasses}>
+        {icon} {textElement}
+      </a>
+    </Link>
   ) : (
     <div className={containerClasses}>
       {icon} {textElement}
