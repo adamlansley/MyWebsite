@@ -33,9 +33,10 @@ const Navbar: NextPage = () => {
 
   const navSlider = `${styles["nav-slider"]}`;
 
-  const navBarStyle = leftPos
-    ? { left: leftPos + "px", width: width + "px" }
-    : undefined;
+  const navBarStyle =
+    leftPos !== undefined
+      ? { left: leftPos + "px", width: width + "px" }
+      : undefined;
 
   const navLinks = navLinksData.map((data, idx) => (
     <Link key={idx} href={data.href}>
@@ -53,7 +54,15 @@ const Navbar: NextPage = () => {
   ));
   return (
     <nav className="flex justify-between flex-row text-xl items-center relative overflow-hidden">
-      <p>A Logo</p>
+      <p
+        onMouseEnter={(e) => {
+          setLeftPos((e.target as HTMLParagraphElement).offsetLeft);
+          setWidth((e.target as HTMLParagraphElement).clientWidth);
+        }}
+        onMouseLeave={() => setLeftPos(undefined)}
+      >
+        A Logo
+      </p>
       <div className="flex flex-row -mr-8">{navLinks}</div>
       <div className={navSlider} style={navBarStyle} />
     </nav>
