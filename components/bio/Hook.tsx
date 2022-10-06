@@ -4,7 +4,7 @@ import { technologies } from "components/bio/ProjectTechnologies";
 
 const { github, linkedin } = technologies;
 
-const Header: FunctionComponent = () => {
+const Hook: FunctionComponent = () => {
   const textClasses = `font-bold text-5xl sm:text-7xl pb-3 relative flex linear-swipe`;
 
   const [isHovering, setHovering] = useState(false);
@@ -34,4 +34,4 @@ const Header: FunctionComponent = () => {
   );
 };
 
-export default Header;
+export default Hook;

@@ -1,46 +1,41 @@
-import { mdiAccount, mdiPhone, mdiStarFourPoints } from "@mdi/js";
-import Chip, { ChipDetails } from "components/layout/Chip";
 import type { NextPage } from "next";
+import Link from "next/link";
+import styles from "./Navbar.module.scss";
 
-const navChipData: ChipDetails[] = [
+const navLinksData = [
   {
-    iconPath: mdiAccount,
+    colourName: "home",
+    text: "Home",
+    href: "/",
+  },
+  {
     colourName: "about",
-    hideUntilHover: true,
     text: "About",
     href: "/about",
   },
   {
-    iconPath: mdiStarFourPoints,
     colourName: "projects",
-    hideUntilHover: true,
     text: "Projects",
     href: "/projects",
   },
   {
-    iconPath: mdiPhone,
     colourName: "contact",
-    hideUntilHover: true,
     text: "Contact",
     href: "/contact",
   },
 ];
 
 const Navbar: NextPage = () => {
-  const navChips = navChipData.map((data, idx) => {
-    return (
-      <li
-        key={idx}
-        className="hover:-translate-x-5 py-2 relative hover:ease-out duration-300"
-      >
-        <Chip {...data} />
-      </li>
-    );
-  });
-
+  const navClasses = `nav-link px-8 py-4 ${styles["nav-link"]}`;
+  const navLinks = navLinksData.map((data, idx) => (
+    <Link key={idx} href={data.href}>
+      <a className={navClasses}>{data.text}</a>
+    </Link>
+  ));
   return (
-    <nav className="absolute h-screen right-0 pr-5">
-      <ul className="h-full flex flex-col pt-10 text-xl">{navChips}</ul>
+    <nav className="flex justify-between flex-row text-xl items-center">
+      <p>A Logo</p>
+      <div className="flex flex-row -mr-8 relative">{navLinks}</div>
     </nav>
   );
 };

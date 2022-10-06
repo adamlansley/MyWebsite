@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Header from "components/bio/Header";
+import Hook from "components/bio/Hook";
 import Navbar from "components/Navbar";
 
 const Home: NextPage = () => {
@@ -11,10 +11,12 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <header className="absolute max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 w-full left-0 right-0">
+        <Navbar />
+      </header>
 
       <main className="max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 h-screen">
-        <Header />
+        <Hook />
       </main>
     </>
   );

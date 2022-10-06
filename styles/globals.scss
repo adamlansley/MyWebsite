@@ -36,8 +36,8 @@ a {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   
-  animation: shine 4s linear infinite;
-  @keyframes shine {
+  animation: swipe 4s linear infinite;
+  @keyframes swipe {
     to {
       background-position: 200% center;
     }
