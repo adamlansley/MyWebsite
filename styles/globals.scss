@@ -2,9 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --bg-colour: #202124;
-  --font-color: #cbd0d6;
+@layer base {
+  :root {
+    --bg-colour: #202124;
+    --font-color: #cbd0d6;
+  }
 }
 
 html,
