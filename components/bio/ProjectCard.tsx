@@ -10,17 +10,10 @@ interface ProjectCardDetails extends CardDetails, ProjectTecnologies {
 
 const ProjectCard: FunctionComponent<ProjectCardDetails> = ({
   technologies,
-  rightAligned,
   index,
   ...others
 }) => {
-  let containerClasses = "flex flex-1";
-
-  if (rightAligned) {
-    containerClasses += " flex-row-reverse lg:pl-0 pl-5 -ml-px";
-  } else {
-    containerClasses += " lg:pr-0 pr-5";
-  }
+  let containerClasses = "flex flex-1  lg:pr-0 pr-5";
 
   if (index) {
     // Always apply to our 3rd and beyond
@@ -34,10 +27,7 @@ const ProjectCard: FunctionComponent<ProjectCardDetails> = ({
 
   return (
     <div className={containerClasses}>
-      <ProjectTechnologies
-        rightAligned={rightAligned}
-        technologies={technologies}
-      />
+      <ProjectTechnologies technologies={technologies} />
       <Card flat {...others}></Card>
     </div>
   );

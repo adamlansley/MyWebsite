@@ -4,7 +4,6 @@ export interface CardDetails extends PropsWithChildren {
   title?: string;
   subtitle?: string;
   flat?: boolean;
-  rightAligned?: boolean;
 }
 
 const Card: FunctionComponent<CardDetails> = ({

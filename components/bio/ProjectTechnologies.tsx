@@ -7,7 +7,7 @@ import {
   mdiVuejs,
 } from "@mdi/js";
 import Chip from "components/layout/Chip";
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent } from "react";
 
 export interface Technology {
   text: string;
@@ -57,43 +57,24 @@ export const technologies: Technologies = {
 
 export interface ProjectTecnologies {
   technologies: Technology[];
-  rightAligned?: boolean;
 }
 
 const ProjectTechnologies: FunctionComponent<ProjectTecnologies> = ({
   technologies,
-  rightAligned,
 }) => {
-  const [isHovering, setHovering] = useState(false);
-
   const tecnologyChips = technologies?.map((technology, index) => (
     <Chip
       key={index}
       iconPath={technology.iconPath}
       colourName={technology.colourName}
-      isHovering={isHovering}
       text={technology.text}
-      hideUntilHover
-      reverse={!rightAligned}
     />
   ));
 
-  let containerClasses = "w-40 flex flex-col p-2 space-y-2 justify-center";
-  if (rightAligned) {
-    containerClasses += " rounded-r-2xl";
-  } else {
-    containerClasses += " rounded-l-2xl";
-  }
+  const containerClasses =
+    "w-40 flex flex-col p-2 space-y-2 justify-center rounded-l-2xl";
 
-  return (
-    <div
-      className={containerClasses}
-      onMouseEnter={() => setHovering(true)}
-      onMouseLeave={() => setHovering(false)}
-    >
-      {tecnologyChips}
-    </div>
-  );
+  return <div className={containerClasses}>{tecnologyChips}</div>;
 };
 
 export default ProjectTechnologies;

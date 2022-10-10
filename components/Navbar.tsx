@@ -53,7 +53,7 @@ const Navbar: NextPage = () => {
     </Link>
   ));
   return (
-    <nav className="flex justify-between flex-row text-xl items-center relative overflow-hidden">
+    <nav className="flex justify-between flex-row text-xl items-center relative">
       <p
         onMouseEnter={(e) => {
           setLeftPos((e.target as HTMLParagraphElement).offsetLeft);
