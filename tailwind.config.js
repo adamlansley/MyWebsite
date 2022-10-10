@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: "var(--bg-colour)",
         typescript: { DEFAULT: "#3178c6" },
         react: { DEFAULT: "#61dafb" },
         tailwindcss: { DEFAULT: "#38bdf5" },
