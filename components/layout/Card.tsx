@@ -20,10 +20,10 @@ const Card: FunctionComponent<CardDetails> = ({
     <div className="font-light text-xl">{subtitle}</div>
   ) : undefined;
 
-  let containerClasses = " rounded p-4 flex-1";
+  let containerClasses = " p-4 flex-1";
 
-  if (flat) {
-    containerClasses = containerClasses.replace("rounded ", "");
+  if (!flat) {
+    containerClasses += " rounded";
   }
 
   return (
