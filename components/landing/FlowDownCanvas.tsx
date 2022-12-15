@@ -112,7 +112,7 @@ const FlowDownCanvas: FunctionComponent = () => {
 
       if (arrow.y > canvas.height - lengthOfBody * 2) {
         const remainingDistanceOfBodyInversePercentage =
-          (canvas.height - arrow.y) / (lengthOfBody * 2);
+          (canvas.height - arrow.y - lengthOfBody) / lengthOfBody;
 
         arrow.colour = pickHexColor(
           arrow.colour,
