@@ -11,7 +11,7 @@ const arrowBodyLength = 10;
 const arrowArmLength = 3;
 const maxScale = 6;
 const minScale = 3;
-const numberOfArrows = 20;
+const numberOfArrowsPer100px = 1;
 
 type FlowDownArrow = {
   id: number;
@@ -48,7 +48,7 @@ const FlowDownCanvas: FunctionComponent = () => {
         : -heightOffset;
 
       // How wide our width segments can be
-      const widthSegmentSize = canvas.width / numberOfArrows;
+      const widthSegmentSize = canvas.width / flowingArrows.length;
 
       // Leftmost position we can place the arrow, with the offset to make sure it doesn't render too far left
       const widthBucketSizeOffsetMin = id * widthSegmentSize + widthOffset;
@@ -74,7 +74,7 @@ const FlowDownCanvas: FunctionComponent = () => {
         scale,
       };
     },
-    [canvasRef]
+    [canvasRef, flowingArrows.length]
   );
 
   const draw = useCallback(
@@ -121,14 +121,28 @@ const FlowDownCanvas: FunctionComponent = () => {
     context?.clearRect(0, 0, context.canvas.width, context.canvas.height);
   };
 
-  function resizeCanvas() {
+  const getExpectedNumberOfArrows = () => {
+    return Math.round((window.screen.width / 100) * numberOfArrowsPer100px);
+  };
+
+  const buildArrows = useCallback(() => {
+    const allArrows: FlowDownArrow[] = Array(getExpectedNumberOfArrows())
+      .fill(0)
+      .map((_, id) => createArrow(true, id));
+
+    setFlowingArrows(allArrows);
+  }, [createArrow]);
+
+  const resizeCanvas = useCallback(() => {
     if (!canvasRef.current) {
       return;
     }
 
     canvasRef.current.width = window.innerWidth;
     canvasRef.current.height = window.innerHeight;
-  }
+
+    buildArrows();
+  }, [buildArrows]);
 
   useEffect(() => {
     if (!canvasRef.current) {
@@ -137,13 +151,7 @@ const FlowDownCanvas: FunctionComponent = () => {
 
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
-
-    const allArrows: FlowDownArrow[] = Array(numberOfArrows)
-      .fill(0)
-      .map((_, id) => createArrow(true, id));
-
-    setFlowingArrows(allArrows);
-  }, [createArrow]);
+  }, [createArrow, resizeCanvas]);
 
   useEffect(() => {
     let animationFrameId: number;
@@ -164,7 +172,12 @@ const FlowDownCanvas: FunctionComponent = () => {
     };
   }, [draw, flowingArrows]);
 
-  return <canvas ref={canvasRef} className="absolute top-0 left-0 z-0" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute top-0 left-0 z-0 w-full h-full"
+    />
+  );
 };
 
 export default FlowDownCanvas;
