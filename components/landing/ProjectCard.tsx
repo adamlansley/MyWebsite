@@ -1,6 +1,6 @@
 import ProjectTechnologies, {
   ProjectTecnologies,
-} from "components/bio/ProjectTechnologies";
+} from "components/landing/ProjectTechnologies";
 import Card, { CardDetails } from "components/layout/Card";
 import { FunctionComponent } from "react";
 
