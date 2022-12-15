@@ -12,6 +12,7 @@ const Home: NextPage = () => {
 
       <main>
         <Vanity />
+        <div className="h-screen" />
       </main>
     </>
   );
