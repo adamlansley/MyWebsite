@@ -1,3 +1,4 @@
+import { pickHexColor } from "components/utils/colours";
 import {
   FunctionComponent,
   useCallback,
@@ -8,9 +9,9 @@ import {
 
 const arrowBodyLength = 10;
 const arrowArmLength = 3;
-const maxScale = 7;
-const minScale = 5;
-const numberOfArrows = 30;
+const maxScale = 6;
+const minScale = 3;
+const numberOfArrows = 20;
 
 type FlowDownArrow = {
   id: number;
@@ -24,48 +25,57 @@ const FlowDownCanvas: FunctionComponent = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [flowingArrows, setFlowingArrows] = useState<FlowDownArrow[]>([]);
 
-  function pickArrowColour() {
-    return Math.random() > 0.5 ? "#66ccff88" : "#ffaaff88";
-  }
+  const createArrow = useCallback(
+    (isCreating: boolean, id: number): FlowDownArrow => {
+      const canvas = canvasRef.current;
 
-  const createArrow = (isCreating: boolean, id: number): FlowDownArrow => {
-    const canvas = canvasRef.current;
+      if (!canvas) {
+        throw Error("uh oh");
+      }
 
-    if (!canvas) {
-      throw Error("uh oh");
-    }
+      const scale = Math.floor(
+        Math.random() * (maxScale - minScale + 1) + minScale
+      );
+      // Roughly how wide an arrow is
+      const widthOffset = arrowArmLength * scale;
 
-    const scale = Math.floor(
-      Math.random() * (maxScale - minScale + 1) + minScale
-    );
-    const widthOffset = arrowArmLength * scale; // 50 is a little extra room
-    const heightOffset = arrowBodyLength * scale;
-    const yPos = isCreating
-      ? -Math.floor(Math.random() * canvas.height) - heightOffset
-      : -heightOffset;
+      // How tall an arrow is
+      const heightOffset = arrowBodyLength * scale;
 
-    const widthBucketSize = canvas.width / numberOfArrows;
-    const widthBucketSizeOffsetMin = id * widthBucketSize;
-    const widthBucketSizeOffsetMax = (id + 1) * widthBucketSize;
-    const randomPointBetweenMinAndMaxBucketSize =
-      Math.floor(
+      // If we are creating, put it somewhere randomly in our canvas, made negative
+      const yPos = isCreating
+        ? -Math.floor(Math.random() * canvas.height) - heightOffset
+        : -heightOffset;
+
+      // How wide our width segments can be
+      const widthSegmentSize = canvas.width / numberOfArrows;
+
+      // Leftmost position we can place the arrow, with the offset to make sure it doesn't render too far left
+      const widthBucketSizeOffsetMin = id * widthSegmentSize + widthOffset;
+
+      // Right most position, making sure it's not too far to the right
+      const widthBucketSizeOffsetMax =
+        (id + 1) * widthSegmentSize - widthOffset;
+
+      // Pick a random point between these two boundaries
+      const randomPointBetweenMinAndMaxBucketSize = Math.floor(
         Math.random() *
           (widthBucketSizeOffsetMax - widthBucketSizeOffsetMin + 1) +
           widthBucketSizeOffsetMin
-      ) + widthOffset;
-    const xPos = Math.min(
-      randomPointBetweenMinAndMaxBucketSize,
-      canvas.width - widthOffset
-    );
+      );
 
-    return {
-      id,
-      x: xPos,
-      y: yPos,
-      colour: pickArrowColour(),
-      scale,
-    };
-  };
+      const xPos = randomPointBetweenMinAndMaxBucketSize;
+
+      return {
+        id,
+        x: xPos,
+        y: yPos,
+        colour: pickHexColor("#66ccff88", "#ffaaff88", 0.6),
+        scale,
+      };
+    },
+    [canvasRef]
+  );
 
   const draw = useCallback(
     (arrow: FlowDownArrow) => {
@@ -125,14 +135,15 @@ const FlowDownCanvas: FunctionComponent = () => {
       return;
     }
 
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
     const allArrows: FlowDownArrow[] = Array(numberOfArrows)
       .fill(0)
       .map((_, id) => createArrow(true, id));
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
     setFlowingArrows(allArrows);
-  }, []);
+  }, [createArrow]);
 
   useEffect(() => {
     let animationFrameId: number;
