@@ -1,5 +1,5 @@
 export function pickHexColor(start: string, end: string, alpha = 1): string {
-  const alphaBetween255 = Math.max(0, Math.min(1, alpha)) * 255;
+  const alphaBetween255 = Math.round(Math.max(0, Math.min(1, alpha)) * 255);
 
   const startRed = parseInt(start.slice(1, 3), 16);
   const startGreen = parseInt(start.slice(3, 5), 16);

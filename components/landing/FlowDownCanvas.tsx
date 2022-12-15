@@ -13,6 +13,8 @@ const maxScale = 6;
 const minScale = 3;
 const numberOfArrowsPer100px = 1;
 
+const baseOpacity = 0.6;
+
 type FlowDownArrow = {
   id: number;
   x: number;
@@ -70,7 +72,7 @@ const FlowDownCanvas: FunctionComponent = () => {
         id,
         x: xPos,
         y: yPos,
-        colour: pickHexColor("#66ccff88", "#ffaaff88", 0.6),
+        colour: pickHexColor("#66ccff88", "#ffaaff88", baseOpacity),
         scale,
       };
     },
@@ -107,6 +109,17 @@ const FlowDownCanvas: FunctionComponent = () => {
       context.stroke();
 
       arrow.y += arrow.scale * 0.25;
+
+      if (arrow.y > canvas.height - lengthOfBody * 2) {
+        const remainingDistanceOfBodyInversePercentage =
+          (canvas.height - arrow.y) / (lengthOfBody * 2);
+
+        arrow.colour = pickHexColor(
+          arrow.colour,
+          arrow.colour,
+          baseOpacity * remainingDistanceOfBodyInversePercentage
+        );
+      }
 
       if (arrow.y > canvas.height) {
         Object.assign(arrow, createArrow(false, arrow.id));
