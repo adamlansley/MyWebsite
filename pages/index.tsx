@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Hook from "components/bio/Hook";
-import Navbar from "components/Navbar";
+import Vanity from "components/landing/Vanity";
 
 const Home: NextPage = () => {
   return (
@@ -11,13 +10,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
-
-      <main className="max-w-screen-2xl mx-auto h-screen -mt-9">
-        <Hook />
+      <main>
+        <Vanity />
       </main>
-
-      <div className="h-screen"></div>
     </>
   );
 };

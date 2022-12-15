@@ -1,5 +1,6 @@
 import { mdiMenu } from "@mdi/js";
 import Icon from "@mdi/react";
+import Drawer from "components/layout/Drawer";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -30,7 +31,8 @@ const navLinksData = [
 
 const Navbar: NextPage = () => {
   const lastScrollY = useRef(0);
-  const [navIsVisible, setNavIsVisible] = useState(true);
+  const [desktopNavIsVisible, setDesktopNavIsVisible] = useState(true);
+  const [mobileNavIsVisible, setMobileNavIsVisible] = useState(true);
   const [leftPos, setLeftPos] = useState<number>();
   const [width, setWidth] = useState<number>();
   const navClasses = `px-4 py-4`;
@@ -61,9 +63,9 @@ const Navbar: NextPage = () => {
     (e: Event) => {
       const scrollTop = (e.target as Document).documentElement.scrollTop;
       if (lastScrollY.current > scrollTop) {
-        setNavIsVisible(true);
+        setDesktopNavIsVisible(true);
       } else if (lastScrollY.current < scrollTop) {
-        setNavIsVisible(false);
+        setDesktopNavIsVisible(false);
       }
       lastScrollY.current = scrollTop;
     },
@@ -78,18 +80,26 @@ const Navbar: NextPage = () => {
     };
   }, [handleNavigation]);
 
-  const navHiddenClass = navIsVisible
+  const navHiddenClass = desktopNavIsVisible
     ? "translate-y-0"
     : "md:translate-y-0 -translate-y-full";
+
+  const mobileNav = mobileNavIsVisible ? (
+    <></>
+  ) : (
+    <Drawer>
+      <div className="bg-background">Cock and balls</div>
+    </Drawer>
+  );
 
   return (
     <header
       className={
-        "transition-transform translate-y-0 sticky max-w-screen-2xl mx-auto w-full left-0 right-0 top-0 bg-background z-10 " +
+        "transition-transform translate-y-0 fixed max-w-screen-2xl mx-auto w-full left-0 right-0 top-0 bg-background z-10 " +
         navHiddenClass
       }
     >
-      <nav className="flex justify-between flex-row text-xl items-center relative ">
+      <nav className="flex justify-between flex-row text-xl items-center">
         <p
           className="px-4 hidden md:block"
           onMouseEnter={(e) => {
@@ -100,9 +110,12 @@ const Navbar: NextPage = () => {
         >
           A Logo
         </p>
-        <Icon className="md:hidden h-[3.75rem] px-4 py-4" path={mdiMenu} />
+        <button onClick={() => setMobileNavIsVisible(true)}>
+          <Icon className="md:hidden h-[3.75rem] px-4 py-4" path={mdiMenu} />
+        </button>
         <div className="md:flex hidden flex-row">{navLinks}</div>
         <div className={navSlider} style={navBarStyle} />
+        {mobileNav}
       </nav>
     </header>
   );
