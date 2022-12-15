@@ -2,7 +2,7 @@ import Chip from "components/layout/Chip";
 import { FunctionComponent } from "react";
 import { technologies } from "components/landing/ProjectTechnologies";
 import Image from "next/image";
-import me from "public/picOfMe.png";
+import me from "public/vanity-picture.png";
 import styles from "./Vanity.module.scss";
 import FlowDownCanvas from "components/landing/FlowDownCanvas";
 
