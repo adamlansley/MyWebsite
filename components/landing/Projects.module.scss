@@ -1,3 +1,29 @@
+.projects-container {
+  clip-path: polygon(
+    0 1rem,
+    30% 1rem,
+    32% 0,
+    100% 0,
+    100% calc(100% - 1rem),
+    70% calc(100% - 1rem),
+    68% 100%,
+    0 100%
+  )
+}
+
+.projects-content {
+  clip-path: polygon(
+    0 1rem,
+    30% 1rem,
+    32% 0,
+    100% 0,
+    100% calc(100% - 1rem),
+    70% calc(100% - 1rem),
+    68% 100%,
+    0 100%
+  )
+}
+
 // clip-path: polygon(
 //   0 3rem,                                       /* Top left, before notch */
 //   1rem 0,                                       /* Top left notch */
