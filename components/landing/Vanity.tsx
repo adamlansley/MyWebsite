@@ -11,7 +11,7 @@ const { github, linkedin } = technologies;
 const Vanity: FunctionComponent = () => {
   const textClasses = `font-bold text-5xl sm:text-7xl pb-3 relative flex linear-swipe`;
 
-  const pictureBorderClasses = `${styles["picture-border"]} mb-2`;
+  const pictureBorderClasses = `${styles["picture-border"]} themed-background rounded-full p-1.5 mb-2`;
 
   const technologyChips = [github, linkedin]?.map((technology, index) => (
     <Chip {...technology} key={index} />
