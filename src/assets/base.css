@@ -2,44 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-  --theme-white: #ffffff;
-  --theme-white-soft: #f8f8f8;
-  --theme-white-mute: #f2f2f2;
-
-  --theme-black: #181818;
-  --theme-black-soft: #222222;
-  --theme-black-mute: #282828;
-
-  --theme-indigo: #2c3e50;
-
-  --theme-divider-light-1: rgba(60, 60, 60, 0.29);
-  --theme-divider-light-2: rgba(60, 60, 60, 0.12);
-  --theme-divider-dark-1: rgba(84, 84, 84, 0.65);
-  --theme-divider-dark-2: rgba(84, 84, 84, 0.48);
-
-  --theme-text-light-1: var(--theme-indigo);
-  --theme-text-light-2: rgba(60, 60, 60, 0.66);
-  --theme-text-dark-1: var(--theme-white);
-  --theme-text-dark-2: rgba(235, 235, 235, 0.64);
-}
-
-/* semantic color variables for this project */
-:root {
-  --color-background: var(--theme-white);
-  --color-background-soft: var(--theme-white-soft);
-  --color-background-mute: var(--theme-white-mute);
-
-  --color-border: var(--theme-divider-light-2);
-  --color-border-hover: var(--theme-divider-light-1);
-
-  --color-heading: var(--theme-text-light-1);
-  --color-text: var(--theme-text-light-1);
-
-  --section-gap: 160px;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: var(--theme-black);
@@ -65,8 +27,6 @@
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
