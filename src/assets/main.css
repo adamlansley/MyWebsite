@@ -4,6 +4,15 @@
 #app {
   margin: 0 auto;
   background-color: theme("colors.zinc.800");
+  color: white;
   width: theme("width.screen");
   height: theme("height.screen");
+}
+
+@media (prefers-color-scheme: light) {
+  #app {
+    margin: 0 auto;
+    background-color: theme("colors.white");
+    color: theme("colors.zinc.800");
+  }
 }
