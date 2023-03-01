@@ -5,7 +5,7 @@ import HomeVanity from "@/components/home/HomeVanity.vue";
 </script>
 
 <template>
-  <main class="h-screen">
+  <main class="h-screen flex">
     <HomeLavaCanvas />
     <HomeVanity/>
   </main>
