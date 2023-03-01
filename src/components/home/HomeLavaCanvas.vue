@@ -8,10 +8,10 @@ interface NumberRange {
   max: number;
 }
 
-const lavaBlobCount: number = 10;
+let lavaBlobCount: number = 20;
 const lavaBlobColourGroups: [string, string][] = [["#66ccff", "#ffaaff"]];
-const lavaBlobSize: NumberRange = { min: 120, max: 200 };
-const blurRange: NumberRange = { min: 30, max: 200 };
+const lavaBlobSize: NumberRange = { min: 20, max: 100 };
+const blurRange: NumberRange = { min: 0, max: 30 };
 
 function random(min: number, max: number): number {
   return Math.random() * ( max - min ) + min;
@@ -25,9 +25,9 @@ class LavaBlob {
   private _colourGroup: [string, string];
   private _gradient: [number, number, number, number];
 
-  private _dX: number = random(-0.5, 0.5);
+  private _dX: number = random(-2, 2);
   private _dY: number = random(-0.5, 0.5);
-  private _dBlur: number = random(-0.25, 0.25);
+  private _dBlur: number = random(-0.1, 0.1);
 
   constructor(initialX: number, initialY: number) {
     this._radius = random(lavaBlobSize.min, lavaBlobSize.max);
@@ -61,18 +61,18 @@ class LavaBlob {
     let newY = this._y + this._dY;
     let newBlur = this._blur + this._dBlur;
     
-    if (newX - this._radius >= maxX || newX + this._radius <= 0) {
+    if (newX >= maxX - this._radius || newX <= 0 + this._radius) {
       this._dX *= -1;
 
       // Round in the opposite direction, with a little oomph
-      newX += this._dX * 2;
+      newX += Math.min(maxY, Math.max(0, this._dX * 2));
     }
 
-    if (newY - this._radius >= maxY || newY + this._radius <= 0 ) {
+    if (newY  >= maxY - this._radius || newY <= 0 + this._radius ) {
       this._dY *= -1;
 
       // Round in the opposite direction, with a little oomph
-      newY += this._dY * 2;
+      newY += Math.min(maxY, Math.max(0, this._dY * 2));
     }
 
     if (newBlur > blurRange.max || newBlur < blurRange.min ) {
@@ -111,7 +111,7 @@ function renderLavaBlobs() {
   }
 
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
-  ctx.globalCompositeOperation = "source-over";
+  ctx.globalCompositeOperation = "lighter";
 
   lavaBlobs.forEach((blob) => {
     blob.draw(ctx);
@@ -125,6 +125,7 @@ onMounted(() => {
   if (canvas.value) {
     canvas.value.width = canvas.value.clientWidth;
     canvas.value.height = canvas.value.clientHeight;
+    lavaBlobCount = Math.min(20, ((canvas.value.width * canvas.value.height) / 75000));
 
     buildLavaBlobs();
 
