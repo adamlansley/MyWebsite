@@ -2,20 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--theme-black);
-    --color-background-soft: var(--theme-black-soft);
-    --color-background-mute: var(--theme-black-mute);
-
-    --color-border: var(--theme-divider-dark-2);
-    --color-border-hover: var(--theme-divider-dark-1);
-
-    --color-heading: var(--theme-text-dark-1);
-    --color-text: var(--theme-text-dark-2);
-  }
-}
-
 *,
 *::before,
 *::after {
@@ -35,4 +21,26 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
+  margin: 0 auto;
+  background-color: theme("colors.zinc.800");
+  color: white;
+  width: theme("width.screen");
+  height: theme("height.screen");
+}
+
+.secondary-text {
+  color: theme("colors.zinc.400");
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    margin: 0 auto;
+    background-color: theme("colors.white");
+    color: theme("colors.zinc.800");
+  }
+
+  .secondary-text {
+    color: theme("colors.zinc.600");
+  }
 }
