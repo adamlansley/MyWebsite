@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background-colour: theme("colors.zinc.800");
+  --font-colour: theme("colors.white");
+}
+
 *,
 *::before,
 *::after {
@@ -23,24 +28,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
   
   margin: 0 auto;
-  background-color: theme("colors.zinc.800");
-  color: white;
+  background-color: var(--background-colour);
+  color: var(--font-colour);
   width: theme("width.screen");
   height: theme("height.screen");
 }
 
-.secondary-text {
-  color: theme("colors.zinc.400");
-}
-
 @media (prefers-color-scheme: light) {
-  body {
-    margin: 0 auto;
-    background-color: theme("colors.white");
-    color: theme("colors.zinc.800");
-  }
-
-  .secondary-text {
-    color: theme("colors.zinc.600");
+  :root {
+    --background-colour: theme("colors.white");
+    --font-colour:  theme("colors.zinc.800");
   }
 }
