@@ -8,7 +8,7 @@ import VitestLogo from "../../assets/imgs/vitest_logo.svg";
 </script>
 
 <template>
-  <div class="flex gap-2">
+  <div class="flex gap-2 flex-wrap justify-center">
     <BaseChip colour="">
       <img class="w-5 h-5" :src="VueLogo" />Vue
     </BaseChip> 
