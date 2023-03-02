@@ -3,7 +3,7 @@ import HomeVanityChips from "./HomeVanityChips.vue";
 </script>
 
 <template>
-  <section class="inline-flex flex-col text-center gap-y-2 drop-shadow m-auto">
+  <section class="inline-flex flex-col text-center gap-y-2 m-auto">
     <h1 class="text-6xl inline-block">Adam Lansley</h1>
     <h2 class="text-2xl inline-block">Front End Developer</h2>
     <HomeVanityChips class="mt-2" />
