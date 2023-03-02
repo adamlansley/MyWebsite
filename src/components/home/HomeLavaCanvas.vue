@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue";
+import { prefersDark } from "../utils/userPreferenceHelpers";
 const canvas = ref<HTMLCanvasElement>();
 const lavaBlobs = reactive<LavaBlob[]>([]);
 
@@ -111,7 +112,7 @@ function renderLavaBlobs() {
   }
 
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height);
-  ctx.globalCompositeOperation = "lighter";
+  ctx.globalCompositeOperation = prefersDark() ? "lighter" : "multiply";
 
   lavaBlobs.forEach((blob) => {
     blob.draw(ctx);
