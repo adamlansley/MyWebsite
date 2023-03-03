@@ -7,7 +7,7 @@ interface NumberRange {
 
 const lavaBlobColourGroups: [string, string][] = [["#66ccff", "#ffaaff"]];
 const lavaBlobSize: NumberRange = { min: 20, max: 100 };
-const blurRange: NumberRange = { min: 0, max: 30 };
+const blurRange: NumberRange = { min: 0, max: 15 };
 
 export class LavaBlob {
   private _radius: number;
