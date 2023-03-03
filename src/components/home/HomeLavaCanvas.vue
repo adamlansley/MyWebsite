@@ -4,6 +4,14 @@ import { random } from "../utils/MathUtils";
 import { prefersDark } from "../utils/UserPreferenceHelpers";
 import { LavaBlob } from "./LavaBlob";
 import { debounce } from "lodash";
+
+export interface HomeLavaCanvasProps {
+  originX?: number;
+  originY?: number;
+}
+
+const props = defineProps<HomeLavaCanvasProps>();
+
 const canvas = ref<HTMLCanvasElement>();
 const lavaBlobs = reactive<LavaBlob[]>([]);
 
@@ -12,7 +20,9 @@ let lavaBlobCount: number = 20;
 function buildLavaBlobs() {
   if (canvas.value) {
     for (let i = 0; i < lavaBlobCount; i++) {
-      lavaBlobs.push(new LavaBlob(random(0, canvas.value.width), random(0, canvas.value.height)));
+      const defaultX = props.originX ?? random(0, canvas.value.width);
+      const defaultY = props.originY ?? random(0, canvas.value.height);
+      lavaBlobs.push(new LavaBlob(defaultX, defaultY));
     }
   }
 }

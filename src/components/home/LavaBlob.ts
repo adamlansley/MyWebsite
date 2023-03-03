@@ -18,7 +18,7 @@ export class LavaBlob {
   private _gradient: [number, number, number, number];
 
   private _dX: number = random(-2, 2);
-  private _dY: number = random(-0.5, 0.5);
+  private _dY: number = random(-1, 1);
   private _dBlur: number = random(-0.1, 0.1);
 
   constructor(initialX: number, initialY: number) {
