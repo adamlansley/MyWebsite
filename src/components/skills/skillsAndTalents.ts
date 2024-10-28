@@ -1,5 +1,3 @@
-import Matter from 'matter-js';
-
 type Enumerate<
   N extends number,
   IsInclusive extends boolean = true,
@@ -22,7 +20,17 @@ type Weighting = IntRange<typeof minimumWeighting, typeof maximumWeighting>;
 export type SkillOrTalentDefinition = {
   name: string;
   weighting: Weighting;
-  options?: Matter.IBodyDefinition;
+};
+
+export const MAX_RADIUS = 100;
+export const MIN_RADIUS = 40;
+
+export const caculateWeightedRadius = (weighting: Weighting) => {
+  const weightSizeDelta =
+    (MAX_RADIUS - MIN_RADIUS) / (maximumWeighting - minimumWeighting);
+
+  const weightingIncrease = weightSizeDelta * (weighting - minimumWeighting);
+  return MIN_RADIUS + weightingIncrease;
 };
 
 export const skillsAndTalents: SkillOrTalentDefinition[] = [
@@ -56,18 +64,3 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
   { name: 'Lily', weighting: 10 },
   { name: 'Mousey', weighting: 9 },
 ];
-
-export const buildSkillTalentBall = (
-  x: number,
-  y: number,
-  maxRadius: number,
-  minRadius: number,
-  { weighting, options }: SkillOrTalentDefinition
-) => {
-  const weightSizeDelta =
-    (maxRadius - minRadius) / (maximumWeighting - minimumWeighting);
-
-  const sizeIncrease = weightSizeDelta * (weighting - minimumWeighting);
-  const size = minRadius + sizeIncrease;
-  return Matter.Bodies.circle(x, y, size, { ...options, friction: 0.4 });
-};

@@ -6,8 +6,6 @@
   display: flex;
   flex-flow: column wrap;
   gap: 2rem;
-
-  position: relative;
 }
 
 .heroPage * {
@@ -20,8 +18,8 @@
   max-width: 42ch;
 }
 
-.skills {
-  position: absolute;
+.skillsScene {
+  position: fixed;
   inset: 0;
   background: transparent;
   z-index: -1;
