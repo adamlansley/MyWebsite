@@ -15,9 +15,9 @@ type IntRange<F extends number, T extends number> = Exclude<
   Enumerate<F, false>
 >;
 
-const maximumWeighting = 1 as const;
-const minimumWeighting = 10 as const;
-type Weighting = IntRange<typeof maximumWeighting, typeof minimumWeighting>;
+export const minimumWeighting = 1 as const;
+export const maximumWeighting = 10 as const;
+type Weighting = IntRange<typeof minimumWeighting, typeof maximumWeighting>;
 
 export type SkillOrTalentDefinition = {
   name: string;
@@ -26,13 +26,35 @@ export type SkillOrTalentDefinition = {
 };
 
 export const skillsAndTalents: SkillOrTalentDefinition[] = [
-  { name: 'TypeScript', weighting: 1 },
-  { name: 'React', weighting: 2 },
-  { name: 'HTML', weighting: 1 },
-  { name: 'CSS', weighting: 3 },
+  { name: 'TypeScript', weighting: 10 },
+  { name: 'React', weighting: 9 },
+  { name: 'Vue', weighting: 8 },
+  { name: 'NextJS', weighting: 5 },
+  { name: 'HTML', weighting: 10 },
+  { name: 'CSS', weighting: 8 },
+  { name: 'SASS', weighting: 7 },
+  { name: 'Tailwind', weighting: 8 },
   { name: 'Figma', weighting: 5 },
   { name: 'UX/UI', weighting: 5 },
-  { name: 'Animations', weighting: 7 },
+  { name: 'Animations', weighting: 3 },
+  { name: 'Capacitor', weighting: 5 },
+  { name: 'Ionic', weighting: 6 },
+  { name: 'Cypress', weighting: 5 },
+  { name: 'Jest', weighting: 8 },
+  { name: 'Vitest', weighting: 8 },
+  { name: 'Git', weighting: 8 },
+  { name: 'React Query', weighting: 8 },
+  { name: 'Node', weighting: 6 },
+  { name: 'Optimizations', weighting: 7 },
+  { name: 'Github', weighting: 8 },
+  { name: 'Jira', weighting: 8 },
+  { name: 'Gherkin', weighting: 5 },
+  { name: 'Google Tag Manager', weighting: 5 },
+  { name: 'GeminiAI', weighting: 5 },
+  { name: 'Chess', weighting: 7 },
+  { name: 'Ozzy', weighting: 10 },
+  { name: 'Lily', weighting: 10 },
+  { name: 'Mousey', weighting: 9 },
 ];
 
 export const buildSkillTalentBall = (
@@ -43,8 +65,9 @@ export const buildSkillTalentBall = (
   { weighting, options }: SkillOrTalentDefinition
 ) => {
   const weightSizeDelta =
-    (maxRadius - minRadius) / (minimumWeighting - maximumWeighting);
-  const sizeReduction = weightSizeDelta * (weighting - maximumWeighting - 1);
-  const size = maxRadius - sizeReduction;
-  return Matter.Bodies.circle(x, y, size, options);
+    (maxRadius - minRadius) / (maximumWeighting - minimumWeighting);
+
+  const sizeIncrease = weightSizeDelta * (weighting - minimumWeighting);
+  const size = minRadius + sizeIncrease;
+  return Matter.Bodies.circle(x, y, size, { ...options, friction: 0.4 });
 };

@@ -5,6 +5,8 @@ import { HTMLAttributes, useCallback, useEffect, useRef } from 'react';
 import styles from '@/components/skills/skillsCanvas.module.css';
 import {
   buildSkillTalentBall,
+  maximumWeighting,
+  minimumWeighting,
   SkillOrTalentDefinition,
   skillsAndTalents,
 } from '@/components/skills/skillsAndTalents';
@@ -12,39 +14,29 @@ import {
 type SkillsCanvasProps = HTMLAttributes<HTMLCanvasElement>;
 type CanvasSize = { width: number; height: number };
 
+const MAX_RADIUS = 120;
+const MIN_RADIUS = 40;
+
+// @TODO: Could this be calculated so that balls don't get forced into each other at the beginning
+const SPAWN_DELAY_MS = 300;
+
 export const SkillsCanvas = (props: SkillsCanvasProps) => {
   const containerRef = useRef<HTMLCanvasElement>(null);
 
   const buildSkillBall = useCallback(
-    (skill: SkillOrTalentDefinition, index: number, { width }: CanvasSize) => {
-      const maxRadius = 90;
-      const minRadius = 50;
-      const columnGap = 10;
-
-      let totalColumnWidth = maxRadius * 2 + columnGap;
-
+    (skill: SkillOrTalentDefinition, { width }: CanvasSize) => {
       // Clamped to at least the number of items in the list, or the maximum number of columns buildable
-      const numberOfColumns = Math.min(
-        skillsAndTalents.length,
-        Math.floor(width / totalColumnWidth)
-      );
-      const totalRowSize = numberOfColumns * totalColumnWidth;
+      const numberOfColumns = maximumWeighting - minimumWeighting;
+      const columnWidth = width / numberOfColumns;
 
-      // Add some more spacing if we haven't used all the available room
-      if (width > totalRowSize) {
-        const remainingSize = width - totalRowSize;
-        const additionalRowGap = remainingSize / numberOfColumns;
-        totalColumnWidth += additionalRowGap;
-      }
-
-      const columnIndex = numberOfColumns - (index % numberOfColumns);
-      const xOffset = columnIndex * totalColumnWidth - maxRadius;
+      const columnIndex = skill.weighting;
+      const xOffset = columnIndex * columnWidth - MAX_RADIUS;
 
       return buildSkillTalentBall(
         xOffset,
-        -maxRadius,
-        maxRadius,
-        minRadius,
+        -MAX_RADIUS,
+        MAX_RADIUS,
+        MIN_RADIUS,
         skill
       );
     },
@@ -89,6 +81,8 @@ export const SkillsCanvas = (props: SkillsCanvasProps) => {
       engine,
       options: {
         ...canvasSize,
+        background: 'transparent',
+        wireframes: false,
       },
     });
     const runner = Matter.Runner.create();
@@ -104,11 +98,8 @@ export const SkillsCanvas = (props: SkillsCanvasProps) => {
 
     skillsAndTalents.forEach((skill, index) => {
       setTimeout(() => {
-        Matter.Composite.add(
-          engine.world,
-          buildSkillBall(skill, index, canvasSize)
-        );
-      }, index * 100);
+        Matter.Composite.add(engine.world, buildSkillBall(skill, canvasSize));
+      }, index * SPAWN_DELAY_MS);
     });
   }, [buildSkillBall, buildWalls]);
 

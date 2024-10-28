@@ -10,6 +10,10 @@
   position: relative;
 }
 
+.heroPage * {
+  text-shadow: 1px 1px 10px var(--background);
+}
+
 .hook {
   font-family: var(--font-geist-mono);
   font-size: 0.5em;
@@ -19,7 +23,8 @@
 .skills {
   position: absolute;
   inset: 0;
-  background: var(--background);
+  background: transparent;
+  z-index: -1;
 }
 
 @media only screen and (max-width: 1264px) {
