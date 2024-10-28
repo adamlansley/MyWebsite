@@ -1,0 +1,48 @@
+.heroPage {
+  --font-size: 5rem;
+  font-size: var(--font-size);
+  padding: 128px 64px;
+
+  display: flex;
+  flex-flow: column wrap;
+  gap: 2rem;
+
+  position: relative;
+}
+
+.hook {
+  font-family: var(--font-geist-mono);
+  font-size: 0.5em;
+  max-width: 42ch;
+}
+
+.skills {
+  position: absolute;
+  inset: 0;
+  background: var(--background);
+}
+
+@media only screen and (max-width: 1264px) {
+  .heroPage {
+    --font-size: 3rem;
+
+    padding: 80px 40px;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .heroPage {
+    --font-size: 2.5rem;
+
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .heroPage {
+    --font-size: 1.75rem;
+
+    padding: 16px 8px;
+  }
+}

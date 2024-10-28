@@ -1,12 +1,17 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f1e4e8;
+  --foreground: #050517;
+
+  --light-grey: #e2dcde;
+  --dark-grey: #2d2d34;
+
+  --accent: #256eff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #050517;
+    --foreground: #f1e4e8;
   }
 }
 
@@ -39,4 +44,9 @@ a {
   html {
     color-scheme: dark;
   }
+}
+
+::-moz-selection,
+::selection {
+  background: var(--accent);
 }
