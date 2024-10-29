@@ -25,7 +25,7 @@ export const SkillsScene = () => {
 
   const skillsMappedToCircles = useMemo(() => {
     return skillsAndTalents.map((skill) => {
-      const numberOfColumns = maximumWeighting - minimumWeighting;
+      const numberOfColumns = maximumWeighting - minimumWeighting + 1;
       const columnWidth = environmentSize.width / numberOfColumns;
 
       const columnIndex = skill.weighting;
@@ -35,10 +35,10 @@ export const SkillsScene = () => {
       return (
         <Circle
           key={skill.name}
-          x={xOffset}
-          y={-MAX_RADIUS}
+          initialX={xOffset}
+          initialY={-MAX_RADIUS}
           radius={radius}
-          fill={{ color: 0xde3249, alpha: 1 }}
+          texture={skill.texture}
         />
       );
     });

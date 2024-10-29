@@ -2,10 +2,10 @@
 
 import React from 'react';
 import {
-  SceneProvider,
-  SceneProviderProps,
-} from '@/components/scenes/SceneProvider';
+  SceneDataProvider,
+  SceneDataProviderProps,
+} from '@/providers/scene/SceneDataProvider';
 
-export const Scene = (props: SceneProviderProps) => {
-  return <SceneProvider {...props} />;
+export const Scene = (props: SceneDataProviderProps) => {
+  return <SceneDataProvider {...props} />;
 };
