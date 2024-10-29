@@ -45,7 +45,14 @@ export const SkillsScene = () => {
   }, [environmentSize.width]);
 
   return (
-    <Scene pixiOptions={environmentSize}>
+    <Scene
+      pixiOptions={{
+        width: environmentSize.width,
+        height: environmentSize.height,
+        antialias: true,
+        backgroundAlpha: 0,
+      }}
+    >
       <Rectangle
         initialX={environmentSize.width / 2}
         initialY={environmentSize.height + BOUNDARY_SIZE / 2}
