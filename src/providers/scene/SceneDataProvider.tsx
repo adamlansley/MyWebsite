@@ -69,7 +69,6 @@ export const SceneDataProvider = ({
 
           sceneObject.graphic.position = sceneObject.body.position;
           sceneObject.graphic.rotation = sceneObject.body.angle;
-          // console.log(sceneObject.body.position);
         });
       });
     },

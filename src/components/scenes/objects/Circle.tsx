@@ -40,34 +40,42 @@ export const Circle = ({
       graphicObject.circle(0, 0, radius).fill({ color: 0xff00ff, alpha: 0.5 });
       return graphicObject;
     }
-    
-    // Default to base fill
-    graphicObject.circle(0, 0, radius).fill(texture.fill);
 
-    if (texture.type === 'SVG') {
+    const outlineOffset = texture.outline?.width
+      ? texture.outline.width / 2
+      : 0;
+
+    // Default to base fill
+    graphicObject.circle(0, 0, radius - outlineOffset).fill(texture.fill);
+
+    if (texture.outline) {
+      graphicObject.stroke(texture.outline);
+    }
+
+    if (texture.type === 'svg') {
       // Container is used to house the mask, and the images
       const container = new PIXI.Container();
       graphicObject.addChild(container);
 
       const mask = new PIXI.Graphics();
-      mask.circle(0, 0, radius).fill({ color: 0xffffff });
+      mask.circle(0, 0, radius - outlineOffset).fill({ color: 0xffffff });
+
       container.mask = mask;
       container.addChild(mask);
 
       // Load the sprite and add it when we're ready
       PIXI.Assets.load(texture.url).then((asset) => {
         const sprite = new Sprite(asset);
+        sprite.anchor.set(0.5, 0.5);
         sprite.width = radius * 2;
         sprite.height = radius * 2;
-        sprite.x = -radius;
-        sprite.y = -radius;
 
         container.addChild(sprite);
       });
       return graphicObject;
     }
-    
-    return graphicObject
+
+    return graphicObject;
   }, [radius, texture, initialX, initialY]);
 
   const initialiseCircle = useCallback(() => {
@@ -88,6 +96,7 @@ export const Circle = ({
         removeObjectFromScene(sceneObject);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;

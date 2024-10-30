@@ -25,17 +25,21 @@ export type SkillOrTalentDefinition = {
   texture?: Textures;
 };
 
-export type Textures = SVGTexture | FillTexture;
+export type Textures = BaseTexture & (SVGTexture | FillTexture);
+
+type BaseTexture = {
+  type: string;
+  fill: PIXI.FillStyle;
+  outline?: PIXI.StrokeStyle;
+};
 
 type FillTexture = {
-  type: 'Fill';
-  fill: PIXI.FillInput;
+  type: 'fill';
 };
 
 type SVGTexture = {
-  type: 'SVG';
+  type: 'svg';
   url: string;
-  fill: PIXI.FillInput;
 };
 
 export const MAX_RADIUS = 100;
@@ -54,20 +58,31 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     name: 'TypeScript',
     weighting: 10,
     texture: {
-      type: 'SVG',
+      type: 'svg',
       url: '/img/icons/typescript.svg',
-      fill: 0x3178C6,
+      fill: { color: 0x3178c6 },
     },
   },
   {
     name: 'React',
-    weighting: 1,
+    weighting: 9,
     texture: {
-      type: 'Fill',
-      fill: 0x0000ff,
+      type: 'svg',
+      url: '/img/icons/react.svg',
+      fill: { color: 0x61dafb, alpha: 0 },
+      outline: { color: 0x61dafb, width: 3 },
     },
   },
-  // { name: 'Vue', weighting: 8 },
+  {
+    name: 'Vue',
+    weighting: 8,
+    texture: {
+      type: 'svg',
+      url: '/img/icons/vue.svg',
+      fill: { color: 0x41b883, alpha: 0 },
+      outline: { color: 0x41b883, width: 3 },
+    },
+  },
   // { name: 'NextJS', weighting: 5 },
   // { name: 'HTML', weighting: 10 },
   // { name: 'CSS', weighting: 8 },
@@ -91,7 +106,16 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
   // { name: 'Google Tag Manager', weighting: 5 },
   // { name: 'GeminiAI', weighting: 5 },
   // { name: 'Chess', weighting: 7 },
-  // { name: 'Ozzy', weighting: 10 },
+  {
+    name: 'Ozzy',
+    weighting: 10,
+    texture: {
+      type: 'svg',
+      url: '/img/icons/ozzy.png',
+      fill: { color: 0x41b883, alpha: 0 },
+      outline: { color: 0xffffff, width: 3 },
+    },
+  },
   // { name: 'Lily', weighting: 10 },
   // { name: 'Mousey', weighting: 9 },
-];
+] as const;

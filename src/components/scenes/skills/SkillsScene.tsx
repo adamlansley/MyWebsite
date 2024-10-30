@@ -39,6 +39,10 @@ export const SkillsScene = () => {
           initialY={-MAX_RADIUS}
           radius={radius}
           texture={skill.texture}
+          options={{
+            friction: 0.5,
+            restitution: 0.5,
+          }}
         />
       );
     });
@@ -64,14 +68,14 @@ export const SkillsScene = () => {
         initialX={-(BOUNDARY_SIZE / 2)}
         initialY={environmentSize.height / 2}
         width={BOUNDARY_SIZE}
-        height={environmentSize.height}
+        height={environmentSize.height * 2}
         options={{ label: 'LEFT_WALL', isStatic: true }}
       />
       <Rectangle
         initialX={environmentSize.width + BOUNDARY_SIZE / 2}
         initialY={environmentSize.height / 2}
         width={BOUNDARY_SIZE}
-        height={environmentSize.height}
+        height={environmentSize.height * 2}
         options={{ label: 'RIGHT_WALL', isStatic: true }}
       />
       {skillsMappedToCircles}

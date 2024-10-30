@@ -33,32 +33,44 @@ export const Rectangle = ({
 
   const buildGraphic = useCallback(() => {
     const graphicObject = new PIXI.Graphics();
+    graphicObject.x = initialX;
+    graphicObject.y = initialY;
+
     if (!texture) {
-      graphicObject.x = initialX;
-      graphicObject.y = initialY;
-      graphicObject.rect(-width / 2, -height / 2, width, height);
-      graphicObject.fill({ color: 0xff00ff });
+      graphicObject
+        .rect(-width / 2, -height / 2, width, height)
+        .fill({ color: 0xff00ff });
       return graphicObject;
     }
 
-    if (texture.type === 'SVG') {
+    graphicObject
+      .rect(-width / 2, -height / 2, width, height)
+      .fill(texture.fill);
+
+    if (texture.type === 'svg') {
+      // Container is used to house the mask, and the images
+      const container = new PIXI.Container();
+      graphicObject.addChild(container);
+
+      const mask = new PIXI.Graphics();
+      mask.rect(0, 0, width, height).fill({ color: 0xffffff });
+
+      container.mask = mask;
+      container.addChild(mask);
+
+      // Load the sprite and add it when we're ready
       PIXI.Assets.load(texture.url).then((asset) => {
         const sprite = new Sprite(asset);
-        graphicObject.addChild(sprite);
+        sprite.anchor.set(0.5, 0.5);
+        sprite.width = width;
+        sprite.height = height;
+
+        container.addChild(sprite);
       });
       return graphicObject;
     }
 
-    if (texture.type === 'Fill') {
-      graphicObject.x = initialX;
-      graphicObject.y = initialY;
-      graphicObject.rect(-width / 2, -height / 2, width, height);
-      graphicObject.fill(texture.fill);
-      return graphicObject;
-    }
-
-    // @ts-expect-error Error could catch future use case
-    throw new Error(`Unknown texture type ${texture.type}`);
+    return graphicObject;
   }, [texture, initialX, initialY, width, height]);
 
   const initialiseRectangle = useCallback(() => {
@@ -79,6 +91,7 @@ export const Rectangle = ({
         removeObjectFromScene(sceneObject);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return null;
