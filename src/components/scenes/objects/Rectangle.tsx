@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef } from 'react';
 import { useSceneContext } from '@/providers/scene/SceneProvider';
 import Matter, { IChamferableBodyDefinition } from 'matter-js';
 import * as PIXI from 'pixi.js';
-import { Sprite } from 'pixi.js';
+import { FillGradient, Sprite } from 'pixi.js';
 import { Textures } from '@/components/skills/skillsAndTalents';
 import { SceneObject } from '@/providers/scene/SceneDataProvider';
 
@@ -12,7 +12,7 @@ type RectangleProps = {
   width: number;
   height: number;
   options?: IChamferableBodyDefinition;
-  texture?: Textures;
+  style?: Textures;
 };
 
 export const Rectangle = ({
@@ -21,7 +21,7 @@ export const Rectangle = ({
   width,
   height,
   options,
-  texture,
+  style,
 }: RectangleProps) => {
   const { addObjectToScene, removeObjectFromScene } = useSceneContext();
   const sceneObject = useRef<SceneObject | null>(null);
@@ -36,42 +36,61 @@ export const Rectangle = ({
     graphicObject.x = initialX;
     graphicObject.y = initialY;
 
-    if (!texture) {
-      graphicObject
-        .rect(-width / 2, -height / 2, width, height)
-        .fill({ color: 0xff00ff });
+    if (!style) {
+      console.warn("You haven't defined a style for a Rectangle");
       return graphicObject;
     }
 
+    const innerOutlineOffset = style.outline?.width
+      ? style.outline.width / 2
+      : 0;
+
     graphicObject
-      .rect(-width / 2, -height / 2, width, height)
-      .fill(texture.fill);
+      .rect(
+        -width / 2,
+        -height / 2,
+        width - innerOutlineOffset,
+        height - innerOutlineOffset
+      )
+      .fill(style.fill);
 
-    if (texture.type === 'svg') {
-      // Container is used to house the mask, and the images
-      const container = new PIXI.Container();
-      graphicObject.addChild(container);
+    if (style.outline) {
+      if (style.outline.fill instanceof FillGradient) {
+        style.outline.fill.x0 = -width / 2;
+        style.outline.fill.y0 = -height / 2;
+        style.outline.fill.x1 = width / 2;
+        style.outline.fill.y1 = height / 2;
+      }
+      graphicObject.stroke(style.outline);
+    }
 
-      const mask = new PIXI.Graphics();
-      mask.rect(0, 0, width, height).fill({ color: 0xffffff });
-
-      container.mask = mask;
-      container.addChild(mask);
-
+    if (style.type === 'svg') {
       // Load the sprite and add it when we're ready
-      PIXI.Assets.load(texture.url).then((asset) => {
+      PIXI.Assets.load<PIXI.Texture>(style.url).then((asset) => {
         const sprite = new Sprite(asset);
         sprite.anchor.set(0.5, 0.5);
         sprite.width = width;
         sprite.height = height;
 
-        container.addChild(sprite);
+        if (style.offset) {
+          sprite.x += style.offset?.x ?? 0;
+          sprite.y += style.offset?.y ?? 0;
+        }
+
+        if (style.scale) {
+          sprite.width *= style.scale?.x ?? 1;
+          sprite.height *= style.scale?.y ?? 1;
+        }
+
+        console.log(asset);
+
+        graphicObject.addChild(sprite);
       });
       return graphicObject;
     }
 
     return graphicObject;
-  }, [texture, initialX, initialY, width, height]);
+  }, [style, initialX, initialY, width, height]);
 
   const initialiseRectangle = useCallback(() => {
     const newSceneObject: SceneObject = {

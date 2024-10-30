@@ -32,17 +32,33 @@ export const SkillsScene = () => {
       const xOffset = columnIndex * columnWidth - MAX_RADIUS;
       const radius = caculateWeightedRadius(skill.weighting);
 
+      const options = {
+        friction: 0.2,
+        restitution: 0.5,
+      };
+
+      if (skill.style.shape === 'rectangle') {
+        return (
+          <Rectangle
+            key={skill.name}
+            initialX={xOffset}
+            initialY={-MAX_RADIUS}
+            width={radius * 2}
+            height={radius * 2}
+            style={skill.style}
+            options={options}
+          />
+        );
+      }
+
       return (
         <Circle
           key={skill.name}
           initialX={xOffset}
           initialY={-MAX_RADIUS}
           radius={radius}
-          texture={skill.texture}
-          options={{
-            friction: 0.5,
-            restitution: 0.5,
-          }}
+          style={skill.style}
+          options={options}
         />
       );
     });

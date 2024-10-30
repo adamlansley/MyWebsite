@@ -3,7 +3,7 @@ import Matter from 'matter-js';
 import * as PIXI from 'pixi.js';
 import { useSceneContext } from '@/providers/scene/SceneProvider';
 import { Textures } from '@/components/skills/skillsAndTalents';
-import { Sprite } from 'pixi.js';
+import { FillGradient, Sprite } from 'pixi.js';
 import { SceneObject } from '@/providers/scene/SceneDataProvider';
 
 export type CircleProps = {
@@ -12,7 +12,7 @@ export type CircleProps = {
   radius: number;
   options?: Matter.IBodyDefinition;
   maxSizes?: number;
-  texture?: Textures;
+  style?: Textures;
 };
 
 export const Circle = ({
@@ -21,7 +21,7 @@ export const Circle = ({
   radius,
   options,
   maxSizes,
-  texture,
+  style,
 }: CircleProps) => {
   const { addObjectToScene, removeObjectFromScene } = useSceneContext();
   const sceneObject = useRef<SceneObject | null>(null);
@@ -36,39 +36,57 @@ export const Circle = ({
     graphicObject.x = initialX;
     graphicObject.y = initialY;
 
-    if (!texture) {
-      graphicObject.circle(0, 0, radius).fill({ color: 0xff00ff, alpha: 0.5 });
+    if (!style) {
+      console.warn("You haven't defined a style for a Circle");
       return graphicObject;
     }
 
-    const outlineOffset = texture.outline?.width
-      ? texture.outline.width / 2
+    const innerOutlineOffset = style.outline?.width
+      ? style.outline.width / 2
       : 0;
 
     // Default to base fill
-    graphicObject.circle(0, 0, radius - outlineOffset).fill(texture.fill);
+    graphicObject.circle(0, 0, radius - innerOutlineOffset).fill(style.fill);
 
-    if (texture.outline) {
-      graphicObject.stroke(texture.outline);
+    if (style.outline) {
+      if (style.outline.fill instanceof FillGradient) {
+        style.outline.fill.x0 = -radius;
+        style.outline.fill.y0 = -radius;
+        style.outline.fill.x1 = radius;
+        style.outline.fill.y1 = radius;
+      }
+      graphicObject.stroke(style.outline);
     }
 
-    if (texture.type === 'svg') {
+    if (style.type === 'svg') {
       // Container is used to house the mask, and the images
       const container = new PIXI.Container();
       graphicObject.addChild(container);
 
       const mask = new PIXI.Graphics();
-      mask.circle(0, 0, radius - outlineOffset).fill({ color: 0xffffff });
+      mask
+        .circle(0, 0, radius - innerOutlineOffset * 2)
+        .fill({ color: 0xffffff });
 
       container.mask = mask;
       container.addChild(mask);
 
       // Load the sprite and add it when we're ready
-      PIXI.Assets.load(texture.url).then((asset) => {
+      PIXI.Assets.load<PIXI.Texture>(style.url).then((asset) => {
         const sprite = new Sprite(asset);
         sprite.anchor.set(0.5, 0.5);
         sprite.width = radius * 2;
         sprite.height = radius * 2;
+
+        if (style.offset) {
+          sprite.x += style.offset?.x ?? 0;
+          sprite.y += style.offset?.y ?? 0;
+        }
+
+        if (style.scale) {
+          sprite.width *= style.scale?.x ?? 1;
+          sprite.height *= style.scale?.y ?? 1;
+        }
 
         container.addChild(sprite);
       });
@@ -76,7 +94,7 @@ export const Circle = ({
     }
 
     return graphicObject;
-  }, [radius, texture, initialX, initialY]);
+  }, [radius, style, initialX, initialY]);
 
   const initialiseCircle = useCallback(() => {
     const newSceneObject: SceneObject = {
