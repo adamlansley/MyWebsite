@@ -69,7 +69,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     style: {
       shape: 'circle',
       type: 'image',
-      url: '/img/icons/typescript.svg',
+      url: '/img/icons/react.svg',
       fill: { color: 0x61dafb, alpha: 0 },
       outline: { color: 0x61dafb, width: 3 },
       scale: { x: 0.8, y: 0.7 },
