@@ -69,7 +69,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     style: {
       shape: 'circle',
       type: 'image',
-      url: '/img/icons/react.svg',
+      url: '/img/icons/typescript.svg',
       fill: { color: 0x61dafb, alpha: 0 },
       outline: { color: 0x61dafb, width: 3 },
       scale: { x: 0.8, y: 0.7 },
@@ -295,7 +295,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       type: 'image',
       url: '/img/icons/github.svg',
       fill: { color: 0xffffff, alpha: 1 },
-      outline: { color: 0xffffff, width: 1 },
+      outline: { color: 0xffffff, width: 3 },
     },
   },
   {
