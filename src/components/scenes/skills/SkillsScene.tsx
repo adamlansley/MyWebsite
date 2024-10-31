@@ -13,14 +13,21 @@ import {
 export const BOUNDARY_SIZE = 50;
 
 export const SkillsScene = () => {
-  const environmentSize = useMemo(
-    () => ({
+  const environmentSize = useMemo(() => {
+    if (typeof window === 'undefined') {
+      return {
+        width: 0,
+        height: 0,
+        area: 0,
+      };
+    }
+
+    return {
       width: window.innerWidth,
       height: window.innerHeight,
       area: window.innerHeight * window.innerWidth,
-    }),
-    []
-  );
+    };
+  }, []);
 
   const skillsMappedToCircles = useMemo(() => {
     const fillAmountOfScreen = 0.5;

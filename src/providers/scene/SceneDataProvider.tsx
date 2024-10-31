@@ -1,5 +1,8 @@
+'use client';
+
 import React, {
   createContext,
+  MutableRefObject,
   useCallback,
   useContext,
   useEffect,
@@ -20,7 +23,7 @@ type SceneDataContext = {
   engine: Matter.Engine | null;
   runner: Matter.Runner | null;
   app: Omit<PIXI.Application<PIXI.Renderer>, 'canvas'> | null;
-  canvas: React.MutableRefObject<HTMLCanvasElement>;
+  canvas: React.MutableRefObject<HTMLCanvasElement> | null;
   sceneObjects: React.MutableRefObject<SceneObject[]>;
 };
 
@@ -47,11 +50,15 @@ export const SceneDataProvider = ({
   const [engine, setEngine] = useState<Matter.Engine | null>(null);
   const [runner, setRunner] = useState<Matter.Runner | null>(null);
   const [app, setApp] = useState<PIXI.Application | null>(null);
-  const canvas = useRef<HTMLCanvasElement>(document.createElement('canvas'));
+  const canvas = useRef<HTMLCanvasElement | null>(null);
   const sceneObjects = useRef<SceneObject[]>([]);
 
   const initialisePixiApp = useCallback(
     async (app: PIXI.Application<PIXI.Renderer>) => {
+      if (!canvas.current) {
+        throw new Error('No canvas exists to initialise pixi app to');
+      }
+
       await app.init({
         canvas: canvas.current,
         ...pixiOptions,
@@ -94,7 +101,7 @@ export const SceneDataProvider = ({
   }, [initialisePixiApp]);
 
   const content = useMemo(() => {
-    if (!engine || !runner || !app) {
+    if (!engine || !runner || !app || !canvas.current) {
       return null;
     }
 
@@ -102,7 +109,7 @@ export const SceneDataProvider = ({
       <SceneProvider
         app={app}
         engine={engine}
-        canvas={canvas}
+        canvas={canvas as MutableRefObject<HTMLCanvasElement>}
         sceneObjects={sceneObjects}
         runner={runner}
       >
@@ -116,7 +123,7 @@ export const SceneDataProvider = ({
       engine,
       runner,
       app,
-      canvas,
+      canvas: canvas as MutableRefObject<HTMLCanvasElement>,
       sceneObjects,
     }),
     [app, engine, runner]
