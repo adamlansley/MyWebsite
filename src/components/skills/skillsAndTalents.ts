@@ -26,7 +26,7 @@ export type SkillOrTalentDefinition = {
   style: Textures;
 };
 
-export type Textures = BaseStyle & (SVGStyle | FillStyle);
+export type Textures = BaseStyle & (ImageStyle | FillStyle);
 
 type BaseStyle = {
   shape: 'circle' | 'rectangle';
@@ -39,8 +39,8 @@ type FillStyle = {
   type: 'fill';
 };
 
-type SVGStyle = {
-  type: 'svg';
+type ImageStyle = {
+  type: 'image';
   url: string;
   scale?: {
     x?: number;
@@ -52,24 +52,13 @@ type SVGStyle = {
   };
 };
 
-export const MAX_RADIUS = 100;
-export const MIN_RADIUS = 40;
-
-export const caculateWeightedRadius = (weighting: Weighting) => {
-  const weightSizeDelta =
-    (MAX_RADIUS - MIN_RADIUS) / (maximumWeighting - minimumWeighting);
-
-  const weightingIncrease = weightSizeDelta * (weighting - minimumWeighting);
-  return MIN_RADIUS + weightingIncrease;
-};
-
 export const skillsAndTalents: SkillOrTalentDefinition[] = [
   {
     name: 'TypeScript',
     weighting: 10,
     style: {
       shape: 'rectangle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/typescript_square.svg',
       fill: { color: 0x3178c6, alpha: 0 },
     },
@@ -79,7 +68,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 9,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/react.svg',
       fill: { color: 0x61dafb, alpha: 0 },
       outline: { color: 0x61dafb, width: 3 },
@@ -91,7 +80,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/vue.svg',
       fill: { color: 0x41b883, alpha: 0 },
       outline: { color: 0x41b883, width: 3 },
@@ -107,7 +96,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 5,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/nextjs.svg',
       fill: { color: 0xffffff, alpha: 1 },
       outline: { color: 0xffffff, width: 3 },
@@ -118,7 +107,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 10,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/html5.svg',
       fill: { color: 0xe44d26, alpha: 0 },
       outline: { color: 0xe44d26, width: 3 },
@@ -134,7 +123,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/css.svg',
       fill: { color: 0x264de4, alpha: 0 },
       outline: { color: 0x264de4, width: 3 },
@@ -150,7 +139,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 7,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/sass.svg',
       fill: { color: 0xcd6799, alpha: 0 },
       outline: { color: 0xcd6799, width: 3 },
@@ -166,7 +155,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/tailwind.svg',
       fill: { color: 0x38bdf8, alpha: 0 },
       outline: { color: 0x38bdf8, width: 3 },
@@ -178,7 +167,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 5,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/figma.svg',
       fill: { color: 0xf24e1e, alpha: 0 },
       outline: {
@@ -196,14 +185,24 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       },
     },
   },
-
-  // { name: 'Capacitor', weighting: 5 },
+  {
+    name: 'Capacitor',
+    weighting: 5,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/capacitor-js.svg',
+      fill: { color: 0x53b9ff, alpha: 0 },
+      outline: { color: 0x53b9ff, width: 3 },
+      scale: { x: 0.6, y: 0.6 },
+    },
+  },
   {
     name: 'Ionic',
     weighting: 6,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/ionic.svg',
       fill: { color: 0x3880ff, alpha: 0 },
       outline: { color: 0x3880ff, width: 3 },
@@ -215,7 +214,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 5,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/cypress.svg',
       fill: { color: 0x050517, alpha: 1 },
     },
@@ -225,7 +224,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/jest.svg',
       fill: { color: 0x99425b, alpha: 0 },
       outline: { color: 0x99425b, width: 3 },
@@ -238,7 +237,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/vitest.svg',
       fill: { color: 0x729b1b, alpha: 0 },
       outline: {
@@ -256,26 +255,92 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     weighting: 8,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/git.svg',
       fill: { color: 0xf03c2e, alpha: 0 },
       outline: { color: 0xf03c2e, width: 3 },
       scale: { x: 0.55, y: 0.55 },
     },
   },
-  // { name: 'React Query', weighting: 8 },
-  // { name: 'Node', weighting: 6 },
-  // { name: 'Github', weighting: 8 },
-  // { name: 'Jira', weighting: 8 },
-  // { name: 'Google Tag Manager', weighting: 5 },
-  // { name: 'GeminiAI', weighting: 5 },
-  // { name: 'Chess', weighting: 7 },
+  {
+    name: 'React Query',
+    weighting: 8,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/tanstack.png',
+      fill: { color: 0xffffff, alpha: 0 },
+    },
+  },
+  {
+    name: 'Node',
+    weighting: 6,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/node.svg',
+      fill: { color: 0x050517, alpha: 1 },
+      outline: { color: 0x5fa04e, width: 3 },
+      scale: {
+        x: 0.8,
+        y: 0.5,
+      },
+    },
+  },
+  {
+    name: 'Github',
+    weighting: 8,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/github.svg',
+      fill: { color: 0xffffff, alpha: 1 },
+      outline: { color: 0xffffff, width: 1 },
+    },
+  },
+  {
+    name: 'Jira',
+    weighting: 8,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/jira.svg',
+      fill: { color: 0xffffff, alpha: 0 },
+      outline: { color: 0x2684ff, width: 3 },
+      scale: {
+        x: 0.7,
+        y: 0.7,
+      },
+      offset: {
+        x: -5,
+        y: 2,
+      },
+    },
+  },
+  {
+    name: 'Chess',
+    weighting: 7,
+    style: {
+      shape: 'circle',
+      type: 'image',
+      url: '/img/icons/chess.svg',
+      fill: { color: 0xffffff, alpha: 0 },
+      outline: { color: 0x5d9948, width: 3 },
+      scale: {
+        x: 0.5,
+        y: 0.7,
+      },
+      offset: {
+        y: -2,
+      },
+    },
+  },
   {
     name: 'Ozzy',
     weighting: 10,
     style: {
       shape: 'circle',
-      type: 'svg',
+      type: 'image',
       url: '/img/icons/ozzy.png',
       fill: { color: 0x41b883, alpha: 0 },
       outline: { color: 0xffffff, width: 3 },

@@ -64,7 +64,7 @@ export const Rectangle = ({
       graphicObject.stroke(style.outline);
     }
 
-    if (style.type === 'svg') {
+    if (style.type === 'image') {
       // Load the sprite and add it when we're ready
       PIXI.Assets.load<PIXI.Texture>(style.url).then((asset) => {
         const sprite = new Sprite(asset);
@@ -81,8 +81,6 @@ export const Rectangle = ({
           sprite.width *= style.scale?.x ?? 1;
           sprite.height *= style.scale?.y ?? 1;
         }
-
-        console.log(asset);
 
         graphicObject.addChild(sprite);
       });

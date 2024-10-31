@@ -5,8 +5,6 @@ import { Scene } from '@/components/scenes/Scene';
 import { Rectangle } from '@/components/scenes/objects/Rectangle';
 import { Circle } from '@/components/scenes/objects/Circle';
 import {
-  caculateWeightedRadius,
-  MAX_RADIUS,
   maximumWeighting,
   minimumWeighting,
   skillsAndTalents,
@@ -19,18 +17,30 @@ export const SkillsScene = () => {
     () => ({
       width: window.innerWidth,
       height: window.innerHeight,
+      area: window.innerHeight * window.innerWidth,
     }),
     []
   );
 
   const skillsMappedToCircles = useMemo(() => {
+    const fillAmountOfScreen = 0.5;
+    const screenSpaceToUse = environmentSize.area * fillAmountOfScreen;
+
+    const totalWeighting = skillsAndTalents.reduce(
+      (total, skill) => total + Math.pow(skill.weighting, 2),
+      0
+    );
+
+    const pixelPerWeightPoint = Math.sqrt(screenSpaceToUse / totalWeighting);
+
     return skillsAndTalents.map((skill) => {
+      const radius = (pixelPerWeightPoint * skill.weighting) / 2;
+
       const numberOfColumns = maximumWeighting - minimumWeighting + 1;
       const columnWidth = environmentSize.width / numberOfColumns;
 
       const columnIndex = skill.weighting;
-      const xOffset = columnIndex * columnWidth - MAX_RADIUS;
-      const radius = caculateWeightedRadius(skill.weighting);
+      const xOffset = columnIndex * columnWidth - 100;
 
       const options = {
         friction: 0.2,
@@ -42,7 +52,7 @@ export const SkillsScene = () => {
           <Rectangle
             key={skill.name}
             initialX={xOffset}
-            initialY={-MAX_RADIUS}
+            initialY={-radius}
             width={radius * 2}
             height={radius * 2}
             style={skill.style}
@@ -55,14 +65,14 @@ export const SkillsScene = () => {
         <Circle
           key={skill.name}
           initialX={xOffset}
-          initialY={-MAX_RADIUS}
+          initialY={-radius}
           radius={radius}
           style={skill.style}
           options={options}
         />
       );
     });
-  }, [environmentSize.width]);
+  }, [environmentSize.area, environmentSize.width]);
 
   return (
     <Scene
@@ -79,6 +89,13 @@ export const SkillsScene = () => {
         width={environmentSize.width}
         height={BOUNDARY_SIZE}
         options={{ label: 'BOTTOM_WALL', isStatic: true }}
+      />
+      <Rectangle
+        initialX={environmentSize.width / 2}
+        initialY={-environmentSize.height / 2}
+        width={environmentSize.width}
+        height={BOUNDARY_SIZE}
+        options={{ label: 'TOP_WALL', isStatic: true }}
       />
       <Rectangle
         initialX={-(BOUNDARY_SIZE / 2)}

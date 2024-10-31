@@ -58,7 +58,7 @@ export const Circle = ({
       graphicObject.stroke(style.outline);
     }
 
-    if (style.type === 'svg') {
+    if (style.type === 'image') {
       // Container is used to house the mask, and the images
       const container = new PIXI.Container();
       graphicObject.addChild(container);
