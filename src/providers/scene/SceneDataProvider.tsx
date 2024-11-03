@@ -53,6 +53,8 @@ export const SceneDataProvider = ({
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const sceneObjects = useRef<SceneObject[]>([]);
 
+  const [debugRenderer] = useState(false);
+
   const initialisePixiApp = useCallback(
     async (app: PIXI.Application<PIXI.Renderer>) => {
       if (!canvas.current) {
@@ -88,7 +90,21 @@ export const SceneDataProvider = ({
     const newApp = new PIXI.Application();
 
     Matter.Runner.run(newRunner, newEngine);
-    initialisePixiApp(newApp);
+
+    if (debugRenderer) {
+      const newRenderer = Matter.Render.create({
+        canvas: canvas.current!,
+        engine: newEngine,
+        options: {
+          width: pixiOptions?.width,
+          height: pixiOptions?.height,
+        },
+      });
+
+      Matter.Render.run(newRenderer);
+    } else {
+      initialisePixiApp(newApp);
+    }
 
     setEngine(newEngine);
     setRunner(newRunner);
@@ -98,7 +114,12 @@ export const SceneDataProvider = ({
       Matter.Engine.clear(newEngine);
       Matter.Runner.stop(newRunner);
     };
-  }, [initialisePixiApp]);
+  }, [
+    debugRenderer,
+    initialisePixiApp,
+    pixiOptions?.height,
+    pixiOptions?.width,
+  ]);
 
   const content = useMemo(() => {
     if (!engine || !runner || !app || !canvas.current) {

@@ -8,7 +8,6 @@ export const HeroPage = () => {
       <div className={styles.skillsScene}>
         <SkillsScene />
       </div>
-      {/*<SkillsCanvas className={styles.skills} />*/}
       <h1 className={styles.name}>Adam Lansley</h1>
       <p className={styles.hook}>
         Turning innovative ideas into responsive, feature-rich solutions built

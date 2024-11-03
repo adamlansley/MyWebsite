@@ -9,6 +9,8 @@ import {
   minimumWeighting,
   skillsAndTalents,
 } from '@/components/skills/skillsAndTalents';
+import { Custom } from '@/components/scenes/objects/Custom';
+import { calculateAspectRatioForVertices } from '@/components/scenes/objects/utils';
 
 export const BOUNDARY_SIZE = 50;
 
@@ -42,6 +44,7 @@ export const SkillsScene = () => {
 
     return skillsAndTalents.map((skill) => {
       const radius = (pixelPerWeightPoint * skill.weighting) / 2;
+      const diameter = radius * 2;
 
       const numberOfColumns = maximumWeighting - minimumWeighting + 1;
       const columnWidth = environmentSize.width / numberOfColumns;
@@ -52,16 +55,38 @@ export const SkillsScene = () => {
       const options = {
         friction: 0.2,
         restitution: 0.5,
+        label: skill.name,
       };
 
-      if (skill.style.shape === 'rectangle') {
+      if (skill.shape === 'custom') {
+        const aspectRatio = calculateAspectRatioForVertices(
+          skill.rigidBody.vertices
+        );
+        const height = Math.sqrt((diameter * diameter) / aspectRatio);
+        const width = aspectRatio * height;
+
+        return (
+          <Custom
+            key={skill.name}
+            initialX={xOffset}
+            initialY={-height}
+            width={width}
+            height={height}
+            style={skill.style}
+            options={options}
+            vertices={skill.rigidBody.vertices}
+          />
+        );
+      }
+
+      if (skill.shape === 'rectangle') {
         return (
           <Rectangle
             key={skill.name}
             initialX={xOffset}
             initialY={-radius}
-            width={radius * 2}
-            height={radius * 2}
+            width={diameter}
+            height={diameter}
             style={skill.style}
             options={options}
           />
