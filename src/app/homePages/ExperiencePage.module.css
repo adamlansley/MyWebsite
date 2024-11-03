@@ -1,0 +1,35 @@
+.experiencePage {
+  --max-width: 800px;
+
+  max-width: var(--max-width);
+  margin: auto;
+
+  display: flex;
+  flex-flow: column;
+  gap: 5rem;
+  padding: 0 16px;
+  justify-content: center;
+}
+
+.experiencePage > h2 {
+  font-size: 4rem;
+}
+
+@media only screen and (max-width: 1264px) {
+}
+
+@media only screen and (max-width: 960px) {
+  .experiencePage {
+    gap: 3rem;
+  }
+
+  .experiencePage > h2 {
+    font-size: 3rem;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .experiencePage > h2 {
+    font-size: 2.5rem;
+  }
+}

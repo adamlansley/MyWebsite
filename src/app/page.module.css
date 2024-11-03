@@ -17,3 +17,10 @@
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
   }
 }
+
+.main {
+  display: flex;
+  flex-flow: column;
+  gap: 25dvh;
+  padding-bottom: 12.5dvh;
+}

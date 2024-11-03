@@ -19,7 +19,7 @@
 }
 
 .skillsScene {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background: transparent;
   z-index: -1;

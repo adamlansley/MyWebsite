@@ -26,9 +26,11 @@ export const SkillsScene = () => {
     }
 
     return {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      area: window.innerHeight * window.innerWidth,
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight,
+      area:
+        document.documentElement.clientWidth *
+        document.documentElement.clientHeight,
     };
   }, []);
 
