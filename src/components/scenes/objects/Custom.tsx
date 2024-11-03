@@ -2,10 +2,10 @@ import { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useSceneContext } from '@/providers/scene/SceneProvider';
 import Matter, { IChamferableBodyDefinition } from 'matter-js';
 import * as PIXI from 'pixi.js';
-import { Sprite } from 'pixi.js';
 import { Textures } from '@/components/skills/skillsAndTalents';
 import { SceneObject } from '@/providers/scene/SceneDataProvider';
 import cloneDeep from 'lodash.clonedeep';
+import { attachImageToGraphics } from '@/components/scenes/objects/utils';
 
 type CustomProps = {
   initialX: number;
@@ -85,30 +85,10 @@ export const Custom = ({
       }
 
       if (style.type === 'image') {
-        // Load the sprite and add it when we're ready
-        PIXI.Assets.load<PIXI.Texture>(style.url).then((asset) => {
-          const sprite = new Sprite(asset);
-          sprite.anchor.set(0.5, 0.5);
-
-          sprite.x = offsetX;
-          sprite.y = offsetY;
-
-          sprite.width = width;
-          sprite.height = height;
-
-          if (style.offset) {
-            sprite.x += style.offset?.x ?? 0;
-            sprite.y += style.offset?.y ?? 0;
-          }
-
-          if (style.scale) {
-            sprite.width *= style.scale?.x ?? 1;
-            sprite.height *= style.scale?.y ?? 1;
-          }
-
-          graphicObject.addChild(sprite);
+        attachImageToGraphics(graphicObject, width, height, style, {
+          offsetX,
+          offsetY,
         });
-
         return graphicObject;
       }
 

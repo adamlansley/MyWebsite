@@ -40,18 +40,18 @@ type CustomSkillOrTalent = {
   rigidBody: { vertices: Matter.Vector[] };
 };
 
-export type Textures = BaseStyle & (ImageStyle | FillStyle);
+export type Textures = ImageStyle | FillStyle;
 
 type BaseStyle = {
   fill: PIXI.FillStyle;
   outline?: PIXI.StrokeStyle;
 };
 
-type FillStyle = {
+type FillStyle = BaseStyle & {
   type: 'fill';
 };
 
-type ImageStyle = {
+export type ImageStyle = BaseStyle & {
   type: 'image';
   url: string;
   scale?: {
@@ -280,16 +280,6 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     },
   },
   {
-    name: 'React Query',
-    shape: 'circle',
-    weighting: 8,
-    style: {
-      type: 'image',
-      url: '/img/icons/tanstack.png',
-      fill: { color: 0xffffff, alpha: 0 },
-    },
-  },
-  {
     name: 'Node',
     shape: 'circle',
     weighting: 6,
@@ -329,8 +319,8 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
         y: 0.7,
       },
       offset: {
-        x: -5,
-        y: 2,
+        x: -10,
+        y: 15,
       },
     },
   },

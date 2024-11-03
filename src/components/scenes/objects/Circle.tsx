@@ -3,8 +3,11 @@ import Matter from 'matter-js';
 import * as PIXI from 'pixi.js';
 import { useSceneContext } from '@/providers/scene/SceneProvider';
 import { Textures } from '@/components/skills/skillsAndTalents';
-import { FillGradient, Sprite } from 'pixi.js';
 import { SceneObject } from '@/providers/scene/SceneDataProvider';
+import {
+  applyOutline,
+  attachImageToGraphics,
+} from '@/components/scenes/objects/utils';
 
 export type CircleProps = {
   initialX: number;
@@ -49,13 +52,7 @@ export const Circle = ({
     graphicObject.circle(0, 0, radius - innerOutlineOffset).fill(style.fill);
 
     if (style.outline) {
-      if (style.outline.fill instanceof FillGradient) {
-        style.outline.fill.x0 = -radius;
-        style.outline.fill.y0 = -radius;
-        style.outline.fill.x1 = radius;
-        style.outline.fill.y1 = radius;
-      }
-      graphicObject.stroke(style.outline);
+      applyOutline(graphicObject, style.outline, radius * 2, radius * 2);
     }
 
     if (style.type === 'image') {
@@ -71,25 +68,7 @@ export const Circle = ({
       container.mask = mask;
       container.addChild(mask);
 
-      // Load the sprite and add it when we're ready
-      PIXI.Assets.load<PIXI.Texture>(style.url).then((asset) => {
-        const sprite = new Sprite(asset);
-        sprite.anchor.set(0.5, 0.5);
-        sprite.width = radius * 2;
-        sprite.height = radius * 2;
-
-        if (style.offset) {
-          sprite.x += style.offset?.x ?? 0;
-          sprite.y += style.offset?.y ?? 0;
-        }
-
-        if (style.scale) {
-          sprite.width *= style.scale?.x ?? 1;
-          sprite.height *= style.scale?.y ?? 1;
-        }
-
-        container.addChild(sprite);
-      });
+      attachImageToGraphics(container, radius * 2, radius * 2, style);
       return graphicObject;
     }
 
