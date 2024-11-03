@@ -29,10 +29,11 @@ export const Rectangle = ({
   const { addObjectToScene, removeObjectFromScene } = useSceneContext();
   const sceneObject = useRef<SceneObject | null>(null);
 
-  const buildRigidBody = useCallback(
-    () => Matter.Bodies.rectangle(initialX, initialY, width, height, options),
-    [height, initialX, initialY, options, width]
-  );
+  const buildRigidBody = useCallback(() => {
+    return Matter.Bodies.rectangle(initialX, initialY, width, height, {
+      ...options,
+    });
+  }, [height, initialX, initialY, options, width]);
 
   const buildGraphic = useCallback(() => {
     const graphicObject = new PIXI.Graphics();

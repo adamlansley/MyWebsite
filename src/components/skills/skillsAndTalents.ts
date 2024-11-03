@@ -29,15 +29,17 @@ export type SkillOrTalentDefinition = {
 
 type RectangleSkillOrTalent = {
   shape: 'rectangle';
+  rigidBodyOptions?: Matter.IChamferableBodyDefinition;
 };
 
 type CircleSkillOrTalent = {
   shape: 'circle';
+  rigidBodyOptions?: Matter.IBodyDefinition;
 };
 
 type CustomSkillOrTalent = {
   shape: 'custom';
-  rigidBody: { vertices: Matter.Vector[] };
+  vertices: Matter.Vector[];
 };
 
 export type Textures = ImageStyle | FillStyle;
@@ -74,6 +76,11 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       url: '/img/icons/typescript_square.svg',
       fill: { color: 0x3178c6, alpha: 0 },
     },
+    rigidBodyOptions: {
+      chamfer: {
+        radius: 30,
+      },
+    },
   },
   {
     name: 'React',
@@ -96,13 +103,11 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       url: '/img/icons/vue.svg',
       fill: { color: 0x41b883, alpha: 0 },
     },
-    rigidBody: {
-      vertices: [
-        Matter.Vector.create(0, 0),
-        Matter.Vector.create(261.76, 0),
-        Matter.Vector.create(130.88, 226.69),
-      ],
-    },
+    vertices: [
+      Matter.Vector.create(0, 0),
+      Matter.Vector.create(261.76, 0),
+      Matter.Vector.create(130.88, 226.69),
+    ],
   },
   {
     name: 'NextJS',
@@ -124,15 +129,13 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       url: '/img/icons/html5.svg',
       fill: { color: 0xe44d26, alpha: 0 },
     },
-    rigidBody: {
-      vertices: [
-        Matter.Vector.create(41, 460),
-        Matter.Vector.create(0, 0),
-        Matter.Vector.create(451, 0),
-        Matter.Vector.create(410, 460),
-        Matter.Vector.create(225, 512),
-      ],
-    },
+    vertices: [
+      Matter.Vector.create(41, 460),
+      Matter.Vector.create(0, 0),
+      Matter.Vector.create(451, 0),
+      Matter.Vector.create(410, 460),
+      Matter.Vector.create(225, 512),
+    ],
   },
   {
     name: 'CSS',
@@ -143,15 +146,13 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       url: '/img/icons/css.svg',
       fill: { color: 0x264de4, alpha: 0 },
     },
-    rigidBody: {
-      vertices: [
-        Matter.Vector.create(41.085, 460.819),
-        Matter.Vector.create(0, 0),
-        Matter.Vector.create(451.456, 0),
-        Matter.Vector.create(410.327, 460.746),
-        Matter.Vector.create(225.452, 512),
-      ],
-    },
+    vertices: [
+      Matter.Vector.create(41.085, 460.819),
+      Matter.Vector.create(0, 0),
+      Matter.Vector.create(451.456, 0),
+      Matter.Vector.create(410.327, 460.746),
+      Matter.Vector.create(225.452, 512),
+    ],
   },
   {
     name: 'SASS',
@@ -277,6 +278,11 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       type: 'image',
       url: '/img/icons/git.svg',
       fill: { color: 0xf03c2e, alpha: 0 },
+    },
+    rigidBodyOptions: {
+      chamfer: {
+        radius: 20,
+      },
     },
   },
   {

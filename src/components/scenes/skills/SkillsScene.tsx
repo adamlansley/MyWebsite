@@ -52,16 +52,14 @@ export const SkillsScene = () => {
       const columnIndex = skill.weighting;
       const xOffset = columnIndex * columnWidth - 100;
 
-      const options = {
+      const baseOptions = {
         friction: 0.2,
         restitution: 0.5,
         label: skill.name,
       };
 
       if (skill.shape === 'custom') {
-        const aspectRatio = calculateAspectRatioForVertices(
-          skill.rigidBody.vertices
-        );
+        const aspectRatio = calculateAspectRatioForVertices(skill.vertices);
         const height = Math.sqrt((diameter * diameter) / aspectRatio);
         const width = aspectRatio * height;
 
@@ -73,8 +71,8 @@ export const SkillsScene = () => {
             width={width}
             height={height}
             style={skill.style}
-            options={options}
-            vertices={skill.rigidBody.vertices}
+            options={{ ...baseOptions }}
+            vertices={skill.vertices}
           />
         );
       }
@@ -88,7 +86,7 @@ export const SkillsScene = () => {
             width={diameter}
             height={diameter}
             style={skill.style}
-            options={options}
+            options={{ ...baseOptions, ...skill.rigidBodyOptions }}
           />
         );
       }
@@ -100,7 +98,7 @@ export const SkillsScene = () => {
           initialY={-radius}
           radius={radius}
           style={skill.style}
-          options={options}
+          options={{ ...baseOptions, ...skill.rigidBodyOptions }}
         />
       );
     });
