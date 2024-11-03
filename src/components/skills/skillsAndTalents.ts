@@ -271,14 +271,12 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
   },
   {
     name: 'Git',
-    shape: 'circle',
+    shape: 'rectangle',
     weighting: 8,
     style: {
       type: 'image',
       url: '/img/icons/git.svg',
       fill: { color: 0xf03c2e, alpha: 0 },
-      outline: { color: 0xf03c2e, width: 3 },
-      scale: { x: 0.55, y: 0.55 },
     },
   },
   {
