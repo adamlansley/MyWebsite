@@ -10,8 +10,7 @@ export const HeroPage = () => {
       </div>
       <h1 className={styles.name}>Adam Lansley</h1>
       <p className={styles.hook}>
-        Turning innovative ideas into responsive, feature-rich solutions built
-        for today’s digital world.
+        Building feature-rich, responsive, and performant web applications.
       </p>
     </PageChunk>
   );

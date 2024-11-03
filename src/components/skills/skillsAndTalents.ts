@@ -126,7 +126,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     },
     rigidBody: {
       vertices: [
-        Matter.Vector.create(11, 460),
+        Matter.Vector.create(41, 460),
         Matter.Vector.create(0, 0),
         Matter.Vector.create(451, 0),
         Matter.Vector.create(410, 460),
