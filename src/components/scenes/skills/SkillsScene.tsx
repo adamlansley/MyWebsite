@@ -11,6 +11,7 @@ import {
 } from '@/components/skills/skillsAndTalents';
 import { Custom } from '@/components/scenes/objects/Custom';
 import { calculateAspectRatioForVertices } from '@/components/scenes/objects/utils';
+import { IBodyDefinition } from 'matter-js';
 
 export const BOUNDARY_SIZE = 50;
 
@@ -52,8 +53,8 @@ export const SkillsScene = () => {
       const columnIndex = skill.weighting;
       const xOffset = columnIndex * columnWidth - 100;
 
-      const baseOptions = {
-        friction: 0.2,
+      const baseOptions: IBodyDefinition = {
+        friction: 0.4,
         restitution: 0.5,
         label: skill.name,
       };
