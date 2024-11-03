@@ -32,8 +32,8 @@ export const SkillsScene = () => {
     };
   }, []);
 
-  const skillsMappedToCircles = useMemo(() => {
-    const fillAmountOfScreen = 0.5;
+  const skillsMappedToShapes = useMemo(() => {
+    const fillAmountOfScreen = 0.45;
     const screenSpaceToUse = environmentSize.area * fillAmountOfScreen;
 
     const totalWeighting = skillsAndTalents.reduce(
@@ -42,8 +42,9 @@ export const SkillsScene = () => {
     );
 
     const pixelPerWeightPoint = Math.sqrt(screenSpaceToUse / totalWeighting);
+    const maximumSize = pixelPerWeightPoint * maximumWeighting;
 
-    return skillsAndTalents.map((skill) => {
+    return skillsAndTalents.map((skill, index) => {
       const radius = (pixelPerWeightPoint * skill.weighting) / 2;
       const diameter = radius * 2;
 
@@ -51,8 +52,7 @@ export const SkillsScene = () => {
       const columnWidth = environmentSize.width / numberOfColumns;
 
       const columnIndex = skill.weighting;
-      const xOffset = columnIndex * columnWidth - 100;
-
+      const xOffset = columnIndex * columnWidth;
       const baseOptions: IBodyDefinition = {
         friction: 0.4,
         restitution: 0.5,
@@ -68,7 +68,7 @@ export const SkillsScene = () => {
           <Custom
             key={skill.name}
             initialX={xOffset}
-            initialY={-height}
+            initialY={-height - maximumSize * index}
             width={width}
             height={height}
             style={skill.style}
@@ -83,7 +83,7 @@ export const SkillsScene = () => {
           <Rectangle
             key={skill.name}
             initialX={xOffset}
-            initialY={-radius}
+            initialY={-radius - maximumSize * index}
             width={diameter}
             height={diameter}
             style={skill.style}
@@ -96,7 +96,7 @@ export const SkillsScene = () => {
         <Circle
           key={skill.name}
           initialX={xOffset}
-          initialY={-radius}
+          initialY={-radius - maximumSize * index}
           radius={radius}
           style={skill.style}
           options={{ ...baseOptions, ...skill.rigidBodyOptions }}
@@ -122,13 +122,6 @@ export const SkillsScene = () => {
         options={{ label: 'BOTTOM_WALL', isStatic: true }}
       />
       <Rectangle
-        initialX={environmentSize.width / 2}
-        initialY={-environmentSize.height / 2}
-        width={environmentSize.width}
-        height={BOUNDARY_SIZE}
-        options={{ label: 'TOP_WALL', isStatic: true }}
-      />
-      <Rectangle
         initialX={-(BOUNDARY_SIZE / 2)}
         initialY={environmentSize.height / 2}
         width={BOUNDARY_SIZE}
@@ -142,7 +135,7 @@ export const SkillsScene = () => {
         height={environmentSize.height * 2}
         options={{ label: 'RIGHT_WALL', isStatic: true }}
       />
-      {skillsMappedToCircles}
+      {skillsMappedToShapes}
     </Scene>
   );
 };
