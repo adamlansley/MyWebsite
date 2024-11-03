@@ -236,7 +236,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     style: {
       type: 'image',
       url: '/img/icons/cypress.svg',
-      fill: { color: 0x050517, alpha: 1 },
+      fill: { color: 0x050517, alpha: 0 },
     },
   },
   {
@@ -266,8 +266,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
           .addColorStop(0.66, 0x729b1b),
         width: 3,
       },
-      scale: { x: 0.55, y: 0.55 },
-      offset: { x: -5 },
+      scale: { x: 0.65, y: 0.65 },
     },
   },
   {
@@ -292,7 +291,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
     style: {
       type: 'image',
       url: '/img/icons/node.svg',
-      fill: { color: 0x050517, alpha: 1 },
+      fill: { color: 0x050517, alpha: 0 },
       outline: { color: 0x5fa04e, width: 3 },
       scale: {
         x: 0.8,
@@ -326,7 +325,7 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
       },
       offset: {
         x: -10,
-        y: 15,
+        y: 10,
       },
     },
   },
@@ -351,10 +350,10 @@ export const skillsAndTalents: SkillOrTalentDefinition[] = [
   {
     name: 'Ozzy',
     shape: 'circle',
-    weighting: 10,
+    weighting: 5,
     style: {
       type: 'image',
-      url: '/img/icons/ozzy.png',
+      url: '/img/icons/ozzy.webp',
       fill: { color: 0x41b883, alpha: 0 },
       outline: { color: 0xffffff, width: 3 },
     },
