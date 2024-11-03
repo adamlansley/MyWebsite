@@ -1,4 +1,4 @@
-import styles from '@/components/page/pageChunk.module.css';
+import styles from '@/components/page/PageChunk.module.css';
 import clsx from 'clsx';
 
 type PageProps = React.PropsWithChildren &

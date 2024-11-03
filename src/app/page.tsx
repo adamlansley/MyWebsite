@@ -1,5 +1,5 @@
 import styles from './page.module.css';
-import { HeroPage } from '@/app/homePages/heroPage';
+import { HeroPage } from '@/app/homePages/HeroPage';
 
 export default function Home() {
   return (

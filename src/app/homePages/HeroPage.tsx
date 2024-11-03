@@ -1,5 +1,5 @@
-import { PageChunk } from '@/components/page/pageChunk';
-import styles from '@/app/homePages/heroPage.module.css';
+import { PageChunk } from '@/components/page/PageChunk';
+import styles from '@/app/homePages/HeroPage.module.css';
 import { SkillsScene } from '@/components/scenes/skills/SkillsScene';
 
 export const HeroPage = () => {
