@@ -6,25 +6,28 @@
 
   display: flex;
   flex-flow: column;
-  gap: 5rem;
+  gap: 1.5rem;
   padding: 0 16px;
   justify-content: center;
+
+  & > h2 {
+    font-size: 4rem;
+  }
 }
 
-.experiencePage > h2 {
-  font-size: 4rem;
-}
+.experienceTimeline {
+  --timeline-gap: 5rem;
 
-@media only screen and (max-width: 1264px) {
+  display: flex;
+  flex-flow: column;
+  gap: var(--timeline-gap);
 }
 
 @media only screen and (max-width: 960px) {
   .experiencePage {
-    gap: 3rem;
-  }
-
-  .experiencePage > h2 {
-    font-size: 3rem;
+    & > h2 {
+      font-size: 3rem;
+    }
   }
 }
 

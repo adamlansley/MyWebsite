@@ -1,0 +1,31 @@
+.chip {
+  --background-colour: var(--foreground);
+  --border-colour: var(--background);
+  --font-colour: var(--background);
+  --border-width: 2px;
+
+  display: flex;
+  flex: 0 1 auto;
+  flex-flow: row nowrap;
+  padding: 0 0.5rem;
+  border-radius: 12px;
+
+  border: solid var(--border-width) var(--border-colour);
+  background-color: var(--background-colour);
+  border-color: var(--border-colour);
+  color: var(--font-colour);
+}
+
+@media (prefers-color-scheme: light) {
+  .chip {
+    --background-colour: var(--background);
+    --border-colour: var(--foreground);
+    --font-colour: var(--foreground);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .chip {
+    --border-width: 1px;
+  }
+}

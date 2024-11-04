@@ -1,4 +1,5 @@
 import styles from './TimelineEntry.module.css';
+import { Chip } from '@/components/chip/Chip';
 
 type ExperienceTimelineEntry = {
   title: string;
@@ -21,7 +22,7 @@ export const TimelineEntry = ({
       <h3 className={styles.timelineTitle}>{title}</h3>
       <div className={styles.timelineTags}>
         {tags.map((tag) => (
-          <div key={tag}>{tag}</div>
+          <Chip key={tag}>{tag}</Chip>
         ))}
       </div>
       <ul className={styles.timelineKeyPoints}>

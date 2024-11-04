@@ -6,10 +6,10 @@
   display: flex;
   flex-flow: column wrap;
   gap: 2rem;
-}
 
-.heroPage * {
-  text-shadow: 1px 1px 10px var(--background);
+  & * {
+    text-shadow: 1px 1px 10px var(--background);
+  }
 }
 
 .hook {
