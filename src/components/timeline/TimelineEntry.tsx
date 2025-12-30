@@ -25,14 +25,14 @@ export const TimelineEntry = ({
           <Chip key={tag}>{tag}</Chip>
         ))}
       </div>
+      <div className={styles.timelineDescription}>
+        <p>{description}</p>
+      </div>
       <ul className={styles.timelineKeyPoints}>
         {keyPoints.map((keyPoint) => (
           <li key={keyPoint}>{keyPoint}</li>
         ))}
       </ul>
-      <div className={styles.timelineDescription}>
-        <p>{description}</p>
-      </div>
     </div>
   );
 };

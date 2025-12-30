@@ -1,66 +1,57 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { prefersReducedMotion } from '@/app/utils/dom';
+import styles from './FadeIn.module.css';
+import clsx from 'clsx';
 
 // Passing a decimal will act as a percentage
-type FadeInProps = { offsetY?: number } & React.PropsWithChildren;
+type FadeInProps = {
+  threshold?: number | number[];
+  durationMs?: number;
+} & React.PropsWithChildren;
 
-export const FadeIn = ({ children, offsetY = 0 }: FadeInProps) => {
+export const FadeIn = ({
+  children,
+  threshold = 0.1,
+  durationMs = 500,
+}: FadeInProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [minimumOpacity, setMinimumOpacity] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => {
-      if (!containerRef.current) return;
-
-      if (prefersReducedMotion()) {
-        setMinimumOpacity(1);
-        return;
+    const observer = new IntersectionObserver(
+      (entries, observer) => {
+        console.log(entries);
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold,
       }
+    );
 
-      const containerClientBottom =
-        containerRef.current.offsetTop + containerRef.current.clientHeight;
-
-      const bottomOfScreenScrollY =
-        window.scrollY + document.documentElement.clientHeight;
-
-      // If we can't scroll anymore (offset can get in the way of this) just max out
-      if (bottomOfScreenScrollY === document.body.clientHeight) {
-        setMinimumOpacity(1);
-        return;
-      }
-
-      const offsetForAnimation =
-        offsetY < 1 ? containerRef.current.clientHeight * offsetY : offsetY;
-
-      const beginScrollY = bottomOfScreenScrollY - offsetForAnimation;
-
-      if (bottomOfScreenScrollY - offsetForAnimation >= containerClientBottom) {
-        setMinimumOpacity(1);
-      } else {
-        // This is relative to the given offset if appropriate
-        const percentageOfContainerShowing =
-          (beginScrollY - containerRef.current.offsetTop) /
-          containerRef.current.clientHeight;
-
-        const opacity = Math.max(minimumOpacity, percentageOfContainerShowing);
-        setMinimumOpacity(opacity);
-      }
-    };
-
-    window.addEventListener('scroll', onScroll);
-
-    // If we load into view, they should be visible, so immediately invoke
-    onScroll();
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      observer.disconnect();
     };
-  }, [minimumOpacity, offsetY]);
+  }, [threshold]);
+
+  const visibilityClass = clsx({
+    [styles.visible]: isVisible,
+    [styles.invisible]: !isVisible,
+  });
 
   return (
-    <div ref={containerRef} style={{ opacity: minimumOpacity }}>
+    <div
+      ref={containerRef}
+      className={clsx(styles.fadeIn, visibilityClass)}
+      style={{ transitionDuration: `${durationMs}ms` }}
+    >
       {children}
     </div>
   );

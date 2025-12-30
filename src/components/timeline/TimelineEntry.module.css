@@ -38,12 +38,15 @@
   display: flex;
   flex-flow: column;
   gap: 0.33rem;
-  margin-bottom: 20px;
   list-style-position: outside;
 
   & > li {
     margin-left: 1rem;
   }
+}
+
+.timelineDescription {
+  margin-bottom: 20px;
 }
 
 @media only screen and (max-width: 960px) {
